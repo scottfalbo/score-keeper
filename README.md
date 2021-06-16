@@ -13,4 +13,16 @@ A simple web application to keep track of scores for various card and board game
 
 ## Development Log
 + 06/15/2021
-  + And off we go, Initial commit.
+  + Scaffolded out app pages.
+  + Created models, interface, service repository, and transient for the rummy score keeper.
+  + Created, seeded and migrated the database.
+  + Made a view component for the rummy score sheet.
+  + Installed the following packages:
+    + `Microsoft.AspNetCore.Mvc.NewtonsoftJson`
+    + `Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation`
+    + `Microsoft.EntityFrameworkCore`
+    + `Microsoft.EntityFrameworkCore.SqlServer`
+    + `Microsoft.EntityFrameworkCore.Tools`
+    + `Newtonsoft.Json`
+    + `System.Configuration.ConfigurationManager`
+
