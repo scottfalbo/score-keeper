@@ -9,9 +9,27 @@ namespace ScoreKeeper.Components
     [ViewComponent]
     public class RummyScore : ViewComponent
     {
+        public RummyScore()
+        {
+
+        }
+
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            return View();
+
+            ViewModel vm = new ViewModel()
+            {
+
+            };
+
+            return View(vm);
+        }
+
+
+        public class ViewModel
+        {
+            public List<int> PlayerOne { get; set; }
+            public List<int> PlayerTwo { get; set; }
         }
 
     }

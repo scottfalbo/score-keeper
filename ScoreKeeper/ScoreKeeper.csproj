@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Models\Interfaces\Services\" />
     <Folder Include="Pages\Shared\Games\" />
   </ItemGroup>
 
