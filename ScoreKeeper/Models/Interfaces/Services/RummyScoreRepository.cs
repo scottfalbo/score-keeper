@@ -22,15 +22,31 @@ namespace ScoreKeeper.Models.Interfaces.Services
             if (game.RummyPlayers[0].Player.PlayerScores.Count() == 0)
             {
                 await AddScore(scoreOne);
-                Score scoreId = await GetLastScore();
-                await AssignScore(scoreId.Id, game.RummyPlayers[0].Player.Id);
+                Score playerOneScoreId = (await GetScores()).Last();
+                await AssignScore(playerOneScoreId.Id, game.RummyPlayers[0].Player.Id);
                 await AddScore(scoreTwo);
-                scoreId = await GetLastScore();
-                await AssignScore(scoreId.Id, game.RummyPlayers[1].Player.Id);
+                Score playerTwoScoreId = (await GetScores()).Last();
+                await AssignScore(playerTwoScoreId.Id, game.RummyPlayers[1].Player.Id);
             }
             else
             {
+                List<Score> scores = await GetScores();
+                await AddScore(scoreOne);
+                Score playerOneScoreId = (await GetScores()).Last();
+                await AssignScore(playerOneScoreId.Id, game.RummyPlayers[0].Player.Id);
+                await AddScore(scoreTwo);
+                Score playerTwoScoreId = (await GetScores()).Last();
+                await AssignScore(playerTwoScoreId.Id, game.RummyPlayers[1].Player.Id);
 
+                int playerOne = scoreOne + scores[scores.Count - 2].Points;
+                int playerTwo = scoreTwo + scores[scores.Count - 1].Points;
+
+                await AddScore(playerOne);
+                playerOneScoreId = (await GetScores()).Last();
+                await AssignScore(playerOneScoreId.Id, game.RummyPlayers[0].Player.Id);
+                await AddScore(playerTwo);
+                playerTwoScoreId = (await GetScores()).Last();
+                await AssignScore(playerTwoScoreId.Id, game.RummyPlayers[1].Player.Id);
             }
 
         }
@@ -114,15 +130,14 @@ namespace ScoreKeeper.Models.Interfaces.Services
         /// Helper method to get the players most recent total score
         /// </summary>
         /// <returns></returns>
-        private async Task<Score> GetLastScore()
+        private async Task<List<Score>> GetScores()
         {
-            var scores = await _db.Scores
+            return await _db.Scores
                 .Select(x => new Score
                 {
                     Id = x.Id,
                     Points = x.Points
                 }).ToListAsync();
-            return scores.Last();
         }
     }
 
