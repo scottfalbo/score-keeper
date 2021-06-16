@@ -13,5 +13,6 @@ namespace ScoreKeeper.Models.Interfaces
         public void Undo();
         public void DeleteGame();
         public bool SaveExists(string save);
+        public Task<Rummy> GetGame(int Id);
     }
 }
