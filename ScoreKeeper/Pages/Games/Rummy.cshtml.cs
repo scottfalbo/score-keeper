@@ -23,14 +23,11 @@ namespace ScoreKeeper.Pages.Games
         }
 
         [BindProperty]
-        public string PlayerOne { get; set; }
-        [BindProperty]
-        public string PlayerTwo { get; set; }
-        [BindProperty]
-        public string SaveAs { get; set; }
+        public GameData GameData { get; set; }
         [BindProperty]
         public Rummy Rummy { get; set; }
-
+        [BindProperty]
+        public ScoreInput ScoreInput { get; set; }
         public bool SaveExists { get; set; }
 
         public async Task OnGet()
@@ -40,13 +37,26 @@ namespace ScoreKeeper.Pages.Games
 
         public IActionResult NewGame()
         {
-            if (_rummy.SaveExists(SaveAs))
+            if (_rummy.SaveExists(GameData.SaveAs))
             {
                 SaveExists = true;
                 return Redirect("/Games/Rummy");
             }
-            _rummy.StartGame(PlayerOne, PlayerTwo, SaveAs);
+            _rummy.StartGame(GameData.PlayerOne, GameData.PlayerTwo, GameData.SaveAs);
             return Redirect("/Games/Rummy");
         }
+    }
+
+    public class GameData
+    {
+        public string PlayerOne { get; set; }
+        public string PlayerTwo { get; set; }
+        public string SaveAs { get; set; }
+    }
+
+    public class ScoreInput
+    {
+        public int PlayerOne { get; set; }
+        public int PlayerTwo { get; set; }
     }
 }

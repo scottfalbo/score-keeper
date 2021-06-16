@@ -12,7 +12,11 @@
     @await Component.InvokeAsync("RummyScore") 
 </div>
 <div>
-    add round
+    <form asp-for-handler="AddScore" method="post">
+        <input type="text" asp-for="ScoreInput.PlayerOne" placeholder="player one" />
+        <input type="text" asp-for="ScoreInput.PlayerTwo" placeholder="player two" />
+        <input type="submit" value="add round" />
+    </form>
 </div>
 <div>controls</div>
 
@@ -24,9 +28,9 @@
     <h2>New Game</h2>
     <p>enter your name</p>
     <form asp-for-handler="NewGame" method="post">
-        <input type="text" asp-for="PlayerOne" placeholder="player one" />
-        <input type="text" asp-for="PlayerTwo" placeholder="player two" />
-        <input type="text" asp-for="SaveAs" placeholder="save as" />
+        <input type="text" asp-for="GameData.PlayerOne" placeholder="player one" />
+        <input type="text" asp-for="GameData.PlayerTwo" placeholder="player two" />
+        <input type="text" asp-for="GameData.SaveAs" placeholder="save as" />
         <input type="submit" value="start game" />
     </form>
 </section>
