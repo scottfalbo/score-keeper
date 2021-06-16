@@ -11,5 +11,4 @@ namespace ScoreKeeper.Models
         public string  SaveAs { get; set; }
         public List<RummyPlayer> RummyPlayers { get; set; }
     }
-
 }

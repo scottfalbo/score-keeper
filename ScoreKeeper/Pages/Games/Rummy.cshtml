@@ -6,8 +6,7 @@
 <h1>Rummy</h1>
 
 <div>
-    <p>@Model.Rummy.RummyPlayers[0].Player.Name</p>
-    <p>@Model.Rummy.RummyPlayers[1].Player.Name</p>
+    @await Component.InvokeAsync("PlayerNames") 
 </div>
 <div>
     @await Component.InvokeAsync("RummyScore") 
