@@ -36,10 +36,13 @@ namespace ScoreKeeper.Models.Interfaces.Services
                 List<Score> scores = await GetScores();
                 await ScoreController(scoreOne, game, 0);
                 await ScoreController(scoreTwo, game, 1);
-                int playerOneTotal = scoreOne + scores[scores.Count - 2].Points;
-                int playerTwoTotal = scoreTwo + scores[scores.Count - 1].Points;
+                int playerOneTotal = scoreOne + scores[^2].Points;
+                int playerTwoTotal = scoreTwo + scores[^1].Points;
                 await ScoreController(playerOneTotal, game, 0);
                 await ScoreController(playerTwoTotal, game, 1);
+
+                if (playerOneTotal >= 1000 || playerTwoTotal >= 1000)
+                    await Winner(game.Id);
             }
         }
 
@@ -93,7 +96,7 @@ namespace ScoreKeeper.Models.Interfaces.Services
                 }).FirstOrDefaultAsync();
         }
 
-        ///------------------------ Methods for adding score -------------------------
+        ///---------------------- Helper methods for adding score -------------------------
         /// <summary>
         /// Controller method to make a series of other method calls
         /// </summary>
@@ -101,11 +104,11 @@ namespace ScoreKeeper.Models.Interfaces.Services
         /// <param name="game"> Rummy object </param>
         /// <param name="playerId"> player id to add score to </param>
         /// <returns></returns>
-        private async Task ScoreController(int score, Rummy game, int playerId)
+        private async Task ScoreController(int score, Rummy game, int playerIndex)
         {
             await AddScore(score);
             Score playerOneScoreId = (await GetScores()).Last();
-            await AssignScore(playerOneScoreId.Id, game.RummyPlayers[playerId].Player.Id);
+            await AssignScore(playerOneScoreId.Id, game.RummyPlayers[playerIndex].Player.Id);
         }
 
         /// <summary>
@@ -152,6 +155,26 @@ namespace ScoreKeeper.Models.Interfaces.Services
                     Id = x.Id,
                     Points = x.Points
                 }).ToListAsync();
+        }
+
+        /// <summary>
+        /// If a player wins it will update there Wins total and reset the scores to 0
+        /// </summary>
+        private async Task Winner(int id)
+        {
+            Rummy game = await GetGame(id);
+            Console.WriteLine("");
+
+            if (game.RummyPlayers[0].Player.PlayerScores[^1].Score.Points >
+                game.RummyPlayers[1].Player.PlayerScores[^1].Score.Points)
+            {
+                game.RummyPlayers[0].Player.Wins++;
+            }
+            else
+                game.RummyPlayers[1].Player.Wins++;
+
+            await ScoreController(0, game, 0);
+            await ScoreController(0, game, 1);
         }
         /// ------------------------ End score adding methods-----------------------
     }
