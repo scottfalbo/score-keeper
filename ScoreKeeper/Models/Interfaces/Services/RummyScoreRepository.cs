@@ -16,39 +16,31 @@ namespace ScoreKeeper.Models.Interfaces.Services
         {
             _db = context;
         }
+
+        /// <summary>
+        /// Add current rounds score to each players running total
+        /// Adds the new scores and new running total to database and view
+        /// </summary>
+        /// <param name="scoreOne"> player one score </param>
+        /// <param name="scoreTwo"> player two score </param>
         public async Task AddScores(int scoreOne, int scoreTwo)
         {
             Rummy game = await GetGame(1);
             if (game.RummyPlayers[0].Player.PlayerScores.Count() == 0)
-            {
-                await AddScore(scoreOne);
-                Score playerOneScoreId = (await GetScores()).Last();
-                await AssignScore(playerOneScoreId.Id, game.RummyPlayers[0].Player.Id);
-                await AddScore(scoreTwo);
-                Score playerTwoScoreId = (await GetScores()).Last();
-                await AssignScore(playerTwoScoreId.Id, game.RummyPlayers[1].Player.Id);
+            { 
+                await ScoreController(scoreOne, game, 0);
+                await ScoreController(scoreTwo, game, 1);
             }
             else
             {
                 List<Score> scores = await GetScores();
-                await AddScore(scoreOne);
-                Score playerOneScoreId = (await GetScores()).Last();
-                await AssignScore(playerOneScoreId.Id, game.RummyPlayers[0].Player.Id);
-                await AddScore(scoreTwo);
-                Score playerTwoScoreId = (await GetScores()).Last();
-                await AssignScore(playerTwoScoreId.Id, game.RummyPlayers[1].Player.Id);
-
-                int playerOne = scoreOne + scores[scores.Count - 2].Points;
-                int playerTwo = scoreTwo + scores[scores.Count - 1].Points;
-
-                await AddScore(playerOne);
-                playerOneScoreId = (await GetScores()).Last();
-                await AssignScore(playerOneScoreId.Id, game.RummyPlayers[0].Player.Id);
-                await AddScore(playerTwo);
-                playerTwoScoreId = (await GetScores()).Last();
-                await AssignScore(playerTwoScoreId.Id, game.RummyPlayers[1].Player.Id);
+                await ScoreController(scoreOne, game, 0);
+                await ScoreController(scoreTwo, game, 1);
+                int playerOneTotal = scoreOne + scores[scores.Count - 2].Points;
+                int playerTwoTotal = scoreTwo + scores[scores.Count - 1].Points;
+                await ScoreController(playerOneTotal, game, 0);
+                await ScoreController(playerTwoTotal, game, 1);
             }
-
         }
 
         public void ContinueGame(string SaveAs)
@@ -101,6 +93,21 @@ namespace ScoreKeeper.Models.Interfaces.Services
                 }).FirstOrDefaultAsync();
         }
 
+        ///------------------------ Methods for adding score -------------------------
+        /// <summary>
+        /// Controller method to make a series of other method calls
+        /// </summary>
+        /// <param name="score"> score to add </param>
+        /// <param name="game"> Rummy object </param>
+        /// <param name="playerId"> player id to add score to </param>
+        /// <returns></returns>
+        private async Task ScoreController(int score, Rummy game, int playerId)
+        {
+            await AddScore(score);
+            Score playerOneScoreId = (await GetScores()).Last();
+            await AssignScore(playerOneScoreId.Id, game.RummyPlayers[playerId].Player.Id);
+        }
+
         /// <summary>
         /// Helper method to add a new score to the database
         /// </summary>
@@ -115,6 +122,13 @@ namespace ScoreKeeper.Models.Interfaces.Services
             _db.Entry(newScore).State = EntityState.Added;
             await _db.SaveChangesAsync();
         }
+
+        /// <summary>
+        /// Assign the new score to the player PlayerScore List
+        /// </summary>
+        /// <param name="scoreId"> score id </param>
+        /// <param name="playerId"> player id </param>
+        /// <returns></returns>
         private async Task AssignScore(int scoreId, int playerId)
         {
             PlayerScore score = new PlayerScore()
@@ -127,7 +141,7 @@ namespace ScoreKeeper.Models.Interfaces.Services
         }
 
         /// <summary>
-        /// Helper method to get the players most recent total score
+        /// Helper method to get the players list of scores
         /// </summary>
         /// <returns></returns>
         private async Task<List<Score>> GetScores()
@@ -139,6 +153,6 @@ namespace ScoreKeeper.Models.Interfaces.Services
                     Points = x.Points
                 }).ToListAsync();
         }
+        /// ------------------------ End score adding methods-----------------------
     }
-
 }
