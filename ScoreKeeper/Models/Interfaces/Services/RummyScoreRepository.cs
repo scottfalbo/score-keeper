@@ -19,13 +19,20 @@ namespace ScoreKeeper.Models.Interfaces.Services
         public async Task AddScores(int scoreOne, int scoreTwo)
         {
             Rummy game = await GetGame(1);
-
             if (game.RummyPlayers[0].Player.PlayerScores.Count() == 0)
             {
-                //update list and return
+                await AddScore(scoreOne);
+                Score scoreId = await GetLastScore();
+                await AssignScore(scoreId.Id, game.RummyPlayers[0].Player.Id);
+                await AddScore(scoreTwo);
+                scoreId = await GetLastScore();
+                await AssignScore(scoreId.Id, game.RummyPlayers[1].Player.Id);
+            }
+            else
+            {
+
             }
 
-            ScoreInput lastTotal = await GetLastScore(1);
         }
 
         public void ContinueGame(string SaveAs)
@@ -83,7 +90,7 @@ namespace ScoreKeeper.Models.Interfaces.Services
         /// </summary>
         /// <param name="score"></param>
         /// <returns></returns>
-        private async Task AddScore(int score, Player player)
+        private async Task AddScore(int score)
         {
             Score newScore = new Score()
             {
@@ -94,21 +101,28 @@ namespace ScoreKeeper.Models.Interfaces.Services
         }
         private async Task AssignScore(int scoreId, int playerId)
         {
-
+            PlayerScore score = new PlayerScore()
+            {
+                PlayerId = playerId,
+                ScoreId = scoreId
+            };
+            _db.Entry(score).State = EntityState.Added;
+            await _db.SaveChangesAsync();
         }
 
         /// <summary>
         /// Helper method to get the players most recent total score
         /// </summary>
         /// <returns></returns>
-        private async Task<Score> GetLastScore(int gameId)
+        private async Task<Score> GetLastScore()
         {
-            return await _db.Scores
+            var scores = await _db.Scores
                 .Select(x => new Score
                 {
                     Id = x.Id,
                     Points = x.Points
-                }).LastOrDefaultAsync();
+                }).ToListAsync();
+            return scores.Last();
         }
     }
 

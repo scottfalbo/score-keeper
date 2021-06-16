@@ -6,28 +6,28 @@
 <h1>Rummy</h1>
 
 <div>
-    @await Component.InvokeAsync("PlayerNames") 
+    @await Component.InvokeAsync("PlayerNames")
 </div>
 <div>
-    @await Component.InvokeAsync("RummyScore") 
+    @await Component.InvokeAsync("RummyScore")
 </div>
 <div>
-    <form asp-for-handler="AddScore" method="post">
-        <input type="text" asp-for="ScoreInput.PlayerOne" placeholder="player one" />
-        <input type="text" asp-for="ScoreInput.PlayerTwo" placeholder="player two" />
+    <form asp-page-handler="AddScore" method="post">
+        <input type="text" asp-for="ScoreInput.PlayerOne" placeholder="player one" required />
+        <input type="text" asp-for="ScoreInput.PlayerTwo" placeholder="player two" required />
         <input type="submit" value="add round" />
     </form>
 </div>
 <div>controls</div>
 
 @*<section>
-    new / continue
-</section>*@
+        new / continue
+    </section>*@
 
 <section>
     <h2>New Game</h2>
     <p>enter your name</p>
-    <form asp-for-handler="NewGame" method="post">
+    <form asp-page-handler="NewGame" method="post">
         <input type="text" asp-for="GameData.PlayerOne" placeholder="player one" />
         <input type="text" asp-for="GameData.PlayerTwo" placeholder="player two" />
         <input type="text" asp-for="GameData.SaveAs" placeholder="save as" />
@@ -36,16 +36,16 @@
 </section>
 
 @*<section>
-    <h2>Continue Game</h2>
-    <p>enter your name</p>
-    <form asp-for-handler="ContinueGame" method="post">
-        <input type="text" asp-for="GameName" placeholder="name" />
-        <input type="submit" value="start game" />
-    </form>
-</section>*@
+        <h2>Continue Game</h2>
+        <p>enter your name</p>
+        <form asp-for-handler="ContinueGame" method="post">
+            <input type="text" asp-for="GameName" placeholder="name" />
+            <input type="submit" value="start game" />
+        </form>
+    </section>*@
 
 <section>
-    @* if (@Model.SaveExists) show pop 
+    @* if (@Model.SaveExists) show pop
         over write or cancel
-        *@
+    *@
 </section>

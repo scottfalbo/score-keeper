@@ -32,11 +32,13 @@ namespace ScoreKeeper.Pages.Games
 
         public async Task OnGet()
         {
+
             Rummy = await _rummy.GetGame(1);
         }
 
-        public IActionResult NewGame()
+        public IActionResult OnPostNewGame()
         {
+            Console.WriteLine("");
             //if (_rummy.SaveExists(GameData.SaveAs))
             //{
             //    SaveExists = true;
@@ -46,7 +48,7 @@ namespace ScoreKeeper.Pages.Games
             return Redirect("/Games/Rummy");
         }
 
-        public async Task<IActionResult> AddScore()
+        public async Task<IActionResult> OnPostAddScore()
         {
             await _rummy.AddScores(ScoreInput.PlayerOne, ScoreInput.PlayerTwo);
             return Redirect("/Games/Rummy");
