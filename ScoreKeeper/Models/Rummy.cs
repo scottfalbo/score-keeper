@@ -7,9 +7,9 @@ namespace ScoreKeeper.Models
 {
     public class Rummy
     {
-        public Player PlayerOne { get; set; }
-        public Player PlayerTwo { get; set; }
+        public int Id { get; set; }
         public string  SaveAs { get; set; }
+        public List<RummyPlayer> RummyPlayers { get; set; }
     }
 
 }

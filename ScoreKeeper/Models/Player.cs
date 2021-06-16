@@ -9,7 +9,9 @@ namespace ScoreKeeper.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<int> Scores { get; set; }
         public int Wins { get; set; }
+        public List<RummyPlayer> RummyPlayers { get; set; }
+        public List<PlayerScore> PlayerScores { get; set; }
+
     }
 }
