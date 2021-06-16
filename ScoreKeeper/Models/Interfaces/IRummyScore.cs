@@ -12,5 +12,6 @@ namespace ScoreKeeper.Models.Interfaces
         public void AddScores(int scoreOne, int scoreTwo);
         public void Undo();
         public void DeleteGame();
+        public bool SaveExists(string save);
     }
 }

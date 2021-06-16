@@ -5,7 +5,10 @@
 
 <h1>Rummy</h1>
 
-<div>names</div>
+<div>
+    <p>@Model.PlayerOne</p>
+    <p>@Model.PlayerTwo</p>
+</div>
 <div>
     @await Component.InvokeAsync("RummyScore") 
 </div>
@@ -37,3 +40,9 @@
         <input type="submit" value="start game" />
     </form>
 </section>*@
+
+<section>
+    @* if (@Model.SaveExists) show pop 
+        over write or cancel
+        *@
+</section>
