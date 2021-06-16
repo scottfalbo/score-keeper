@@ -1,0 +1,48 @@
+﻿@page
+@model ScoreKeeper.Pages.Games.RummyModel
+@{
+}
+
+<h1>Rummy</h1>
+
+<div>
+    <p>@Model.Rummy.RummyPlayers[0].Player.Name</p>
+    <p>@Model.Rummy.RummyPlayers[1].Player.Name</p>
+</div>
+<div>
+    @await Component.InvokeAsync("RummyScore") 
+</div>
+<div>
+    add round
+</div>
+<div>controls</div>
+
+@*<section>
+    new / continue
+</section>*@
+
+<section>
+    <h2>New Game</h2>
+    <p>enter your name</p>
+    <form asp-for-handler="NewGame" method="post">
+        <input type="text" asp-for="PlayerOne" placeholder="player one" />
+        <input type="text" asp-for="PlayerTwo" placeholder="player two" />
+        <input type="text" asp-for="SaveAs" placeholder="save as" />
+        <input type="submit" value="start game" />
+    </form>
+</section>
+
+@*<section>
+    <h2>Continue Game</h2>
+    <p>enter your name</p>
+    <form asp-for-handler="ContinueGame" method="post">
+        <input type="text" asp-for="GameName" placeholder="name" />
+        <input type="submit" value="start game" />
+    </form>
+</section>*@
+
+<section>
+    @* if (@Model.SaveExists) show pop 
+        over write or cancel
+        *@
+</section>
