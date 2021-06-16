@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ScoreKeeper.Data;
+using ScoreKeeper.Pages.Games;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +16,16 @@ namespace ScoreKeeper.Models.Interfaces.Services
         {
             _db = context;
         }
-        public void AddScores(int scoreOne, int scoreTwo)
+        public async Task AddScores(int scoreOne, int scoreTwo)
         {
-            throw new NotImplementedException();
+            Rummy game = await GetGame(1);
+
+            if (game.RummyPlayers[0].Player.PlayerScores.Count() == 0)
+            {
+                //update list and return
+            }
+
+            ScoreInput lastTotal = await GetLastScore(1);
         }
 
         public void ContinueGame(string SaveAs)
@@ -50,6 +58,10 @@ namespace ScoreKeeper.Models.Interfaces.Services
 
         }
 
+        /// <summary>
+        /// Get a game score sheet by id
+        /// </summary>
+        /// <param name="Id"> Rummy object id </param>
         public async Task<Rummy> GetGame(int Id)
         {
             return await _db.Rummy
@@ -65,5 +77,39 @@ namespace ScoreKeeper.Models.Interfaces.Services
                     RummyPlayers = z.RummyPlayers
                 }).FirstOrDefaultAsync();
         }
+
+        /// <summary>
+        /// Helper method to add a new score to the database
+        /// </summary>
+        /// <param name="score"></param>
+        /// <returns></returns>
+        private async Task AddScore(int score, Player player)
+        {
+            Score newScore = new Score()
+            {
+                Points = score
+            };
+            _db.Entry(newScore).State = EntityState.Added;
+            await _db.SaveChangesAsync();
+        }
+        private async Task AssignScore(int scoreId, int playerId)
+        {
+
+        }
+
+        /// <summary>
+        /// Helper method to get the players most recent total score
+        /// </summary>
+        /// <returns></returns>
+        private async Task<Score> GetLastScore(int gameId)
+        {
+            return await _db.Scores
+                .Select(x => new Score
+                {
+                    Id = x.Id,
+                    Points = x.Points
+                }).LastOrDefaultAsync();
+        }
     }
+
 }

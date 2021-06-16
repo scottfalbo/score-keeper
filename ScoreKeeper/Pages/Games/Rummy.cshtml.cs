@@ -37,12 +37,18 @@ namespace ScoreKeeper.Pages.Games
 
         public IActionResult NewGame()
         {
-            if (_rummy.SaveExists(GameData.SaveAs))
-            {
-                SaveExists = true;
-                return Redirect("/Games/Rummy");
-            }
-            _rummy.StartGame(GameData.PlayerOne, GameData.PlayerTwo, GameData.SaveAs);
+            //if (_rummy.SaveExists(GameData.SaveAs))
+            //{
+            //    SaveExists = true;
+            //    return Redirect("/Games/Rummy");
+            //}
+            //_rummy.StartGame(GameData.PlayerOne, GameData.PlayerTwo, GameData.SaveAs);
+            return Redirect("/Games/Rummy");
+        }
+
+        public async Task<IActionResult> AddScore()
+        {
+            await _rummy.AddScores(ScoreInput.PlayerOne, ScoreInput.PlayerTwo);
             return Redirect("/Games/Rummy");
         }
     }
