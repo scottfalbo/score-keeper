@@ -24,8 +24,9 @@ namespace ScoreKeeper.Components
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            int gameId = Int32.Parse(HttpContext.Request.Cookies["game id"]);
-            Rummy game = await _rummy.GetGame(gameId);
+            string gameId = HttpContext.Request.Cookies["game id"];
+            int id = gameId != null ? Int32.Parse(gameId) : -1;
+            Rummy game = await _rummy.GetGame(id);
             ViewModel vm = new ViewModel()
             {
                 PlayerOnePoints = game.RummyPlayers[0].Player.PlayerScores,

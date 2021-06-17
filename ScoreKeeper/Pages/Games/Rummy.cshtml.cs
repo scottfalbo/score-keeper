@@ -57,8 +57,9 @@ namespace ScoreKeeper.Pages.Games
         {
             HideGameMenu = true;
             HideMainMenu = true;
-            int gameId = Int32.Parse(HttpContext.Request.Cookies["game id"]);
-            Rummy = await _rummy.GetGame(gameId);
+            string gameId = HttpContext.Request.Cookies["game id"];
+            int id = gameId != null ? Int32.Parse(gameId) : -1;
+            Rummy = await _rummy.GetGame(id);
         }
 
 
@@ -97,8 +98,9 @@ namespace ScoreKeeper.Pages.Games
         {
             GameOver = await _rummy.AddScores(ScoreInput.PlayerOne, ScoreInput.PlayerTwo, Rummy.Id);
             NextGame = GameOver.GameOver;
-            int gameId = Int32.Parse(HttpContext.Request.Cookies["game id"]);
-            Rummy = await _rummy.GetGame(gameId);
+            string gameId = HttpContext.Request.Cookies["game id"];
+            int id = gameId != null ? Int32.Parse(gameId) : -1;
+            Rummy = await _rummy.GetGame(id);
             ScoreInput.PlayerOne = 0;
             ScoreInput.PlayerTwo = 0;
             HideGameMenu = true;

@@ -151,6 +151,7 @@ namespace ScoreKeeper.Models.Interfaces.Services
                 .Select(z => new Rummy
                 {
                     Id = z.Id,
+                    Limit = z.Limit,
                     RummyPlayers = z.RummyPlayers
                 }).FirstOrDefaultAsync();
         }
