@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ScoreKeeper.Data;
 using ScoreKeeper.Models;
 using ScoreKeeper.Models.Interfaces;
+using ScoreKeeper.Models.Interfaces.Services;
 
 namespace ScoreKeeper.Pages.Games
 {
@@ -20,6 +22,7 @@ namespace ScoreKeeper.Pages.Games
         {
             _rummy = rummy;
             _db = context;
+            GameOver = new Winner();
         }
 
         [BindProperty]
@@ -28,33 +31,97 @@ namespace ScoreKeeper.Pages.Games
         public Rummy Rummy { get; set; }
         [BindProperty]
         public ScoreInput ScoreInput { get; set; }
+        [BindProperty]
+        public Winner GameOver { get; set; }
+        [BindProperty]
+
+        // Menu bools
+        public bool NextGame { get; set; }
+        [BindProperty]
+        public bool HideGameMenu { get; set; }
+        [BindProperty]
+        public bool HideMainMenu { get; set; }
         public bool SaveExists { get; set; }
 
         public async Task OnGet()
         {
-
+            HideGameMenu = true;
             Rummy = await _rummy.GetGame(1);
         }
 
-        public IActionResult OnPostNewGame()
+        /// <summary>
+        /// Start a new game, method called from Next Game option
+        /// </summary>
+        public async Task OnPostGameOver()
         {
-            Console.WriteLine("");
-            //if (_rummy.SaveExists(GameData.SaveAs))
-            //{
-            //    SaveExists = true;
-            //    return Redirect("/Games/Rummy");
-            //}
-            //_rummy.StartGame(GameData.PlayerOne, GameData.PlayerTwo, GameData.SaveAs);
-            return Redirect("/Games/Rummy");
+            HideGameMenu = true;
+            HideMainMenu = true;
+            Rummy = await _rummy.GetGame(1);
         }
 
-        public async Task<IActionResult> OnPostAddScore()
+
+        public async Task OnPostNewGame()
         {
-            await _rummy.AddScores(ScoreInput.PlayerOne, ScoreInput.PlayerTwo);
-            return Redirect("/Games/Rummy");
+            HideGameMenu = true;
+            if (_rummy.SaveExists(GameData.SaveAs).Result == true)
+            {
+                SaveExists = true;
+                Redirect("/");
+            }
+            int gameId = await _rummy.StartGame(GameData.PlayerOne, GameData.PlayerTwo, GameData.SaveAs, GameData.Limit);
+            MakeCookie(gameId);
+
+            Redirect("/");
+        }
+
+        public async Task OnPostLoadSaved()
+        {
+            //_rummy.ContinueGame()
+        }
+
+        /// <summary>
+        /// Brings up the new game menu
+        /// </summary>
+        public void OnPostNewGameMenu()
+        {
+            HideMainMenu = true;
+            HideGameMenu = false;
+        }
+
+        /// <summary>
+        /// Takes the players scores for the round and adds them to the total
+        /// </summary>
+        public async Task OnPostAddScore()
+        {
+            GameOver = await _rummy.AddScores(ScoreInput.PlayerOne, ScoreInput.PlayerTwo);
+            NextGame = GameOver.GameOver;
+            Rummy = await _rummy.GetGame(1);
+            ScoreInput.PlayerOne = 0;
+            ScoreInput.PlayerTwo = 0;
+            HideGameMenu = true;
+            HideMainMenu = true;
+            Redirect("/");
+        }
+
+        /// <summary>
+        /// Save the gameId as a cookie for later access
+        /// </summary>
+        /// <param name="id"></param>
+        private void MakeCookie(int id)
+        {
+            CookieOptions cookieOptions = new CookieOptions()
+            {
+                Expires = new DateTimeOffset(DateTime.Now.AddMonths(12)),
+                Secure = true,
+                HttpOnly = true
+            };
+            HttpContext.Response.Cookies.Append("game id", id.ToString(), cookieOptions);
         }
     }
 
+    /// <summary>
+    /// Data objects for properties
+    /// </summary>
     public class GameData
     {
         public string PlayerOne { get; set; }

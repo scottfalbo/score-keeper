@@ -1,0 +1,17 @@
+﻿@model ScoreKeeper.Pages.Games.RummyModel
+
+<div>
+    <div>
+        <p>There is already a file saved with that name</p>
+        <form asp-page-handler="NewGame" method="post">
+            <input type="hidden" asp-for="GameData.PlayerOne" placeholder="player one" required />
+            <input type="hidden" asp-for="GameData.PlayerTwo" placeholder="player two" required />
+            <input type="hidden" asp-for="GameData.Limit" placeholder="" required />
+            <input type="hidden" asp-for="GameData.SaveAs" placeholder="save as" required />
+            <input type="submit" value="overwrite" />
+        </form>
+        <form asp-page-handler="NewGameMenu" method="post">
+            <input type="submit" value="cancel" />
+        </form>
+    </div>
+</div>

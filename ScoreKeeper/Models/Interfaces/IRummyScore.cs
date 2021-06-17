@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScoreKeeper.Models.Interfaces.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,12 +8,13 @@ namespace ScoreKeeper.Models.Interfaces
 {
     public interface IRummyScore
     {
-        public void StartGame(string playerOne, string playerTwo, string SaveAs);
+        public Task<int> StartGame(string playerOne, string playerTwo, string SaveAs, int limit);
         public void ContinueGame(string SaveAs);
-        public Task AddScores(int scoreOne, int scoreTwo);
+        public Task<Winner> AddScores(int scoreOne, int scoreTwo);
         public void Undo();
         public void DeleteGame();
-        public bool SaveExists(string save);
+        public Task<bool> SaveExists(string save);
         public Task<Rummy> GetGame(int Id);
+        public Task ClearScoreSheet(Rummy game);
     }
 }
