@@ -75,4 +75,6 @@ body {
 .temp-dev section{
     display: inline-block;
     padding: 20px;
+    height: 400px;
+    overflow-y: auto;
 }

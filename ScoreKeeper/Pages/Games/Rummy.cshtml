@@ -28,9 +28,10 @@
     <h2>New Game</h2>
     <p>enter your name</p>
     <form asp-page-handler="NewGame" method="post">
-        <input type="text" asp-for="GameData.PlayerOne" placeholder="player one" />
-        <input type="text" asp-for="GameData.PlayerTwo" placeholder="player two" />
-        <input type="text" asp-for="GameData.SaveAs" placeholder="save as" />
+        <input type="text" asp-for="GameData.PlayerOne" placeholder="player one" required/>
+        <input type="text" asp-for="GameData.PlayerTwo" placeholder="player two" required/>
+        <input type="text" asp-for="GameData.Limit" placeholder="" required/>
+        <input type="text" asp-for="GameData.SaveAs" placeholder="save as" required/>
         <input type="submit" value="start game" />
     </form>
 </section>

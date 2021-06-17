@@ -60,6 +60,7 @@ namespace ScoreKeeper.Pages.Games
         public string PlayerOne { get; set; }
         public string PlayerTwo { get; set; }
         public string SaveAs { get; set; }
+        public int Limit { get; set; }
     }
 
     public class ScoreInput

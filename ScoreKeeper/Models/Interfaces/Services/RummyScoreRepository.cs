@@ -41,7 +41,7 @@ namespace ScoreKeeper.Models.Interfaces.Services
                 await ScoreController(playerOneTotal, game, 0);
                 await ScoreController(playerTwoTotal, game, 1);
 
-                if (playerOneTotal >= 1000 || playerTwoTotal >= 1000)
+                if (playerOneTotal >= game.Limit || playerTwoTotal >= game.Limit)
                     await Winner(game.Id);
             }
         }
