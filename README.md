@@ -3,6 +3,7 @@
 A simple web application to keep track of scores for various card and board games.
 
 ## Technologies
+
 + C#
 + ASP.NET
 + Razor Pages
@@ -12,6 +13,7 @@ A simple web application to keep track of scores for various card and board game
 + GitHub
 
 ## Development Log
+
 + 06/15/2021
   + Scaffolded out app pages.
   + Created models, interface, service repository, and transient for the rummy score keeper.
@@ -29,3 +31,7 @@ A simple web application to keep track of scores for various card and board game
     + Moved player names and wins to view component.
     + Built out methods to add scores to the database and to the `PlayerScore List`
     + Wrote logic to add the scores as they are submitted updating the view.  Game resets when a player reaches goal.
+    + Added properties and logic to hide and show menu windows at the appropriate times.
+    + Made a tracking cookie to keep track of the current users game id.
+  + 06/17/2021
+    + 
