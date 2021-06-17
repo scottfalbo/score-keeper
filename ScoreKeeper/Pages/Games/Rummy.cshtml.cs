@@ -34,6 +34,8 @@ namespace ScoreKeeper.Pages.Games
         public Winner GameOver { get; set; }
         [BindProperty]
         public bool NextGame { get; set; }
+        [BindProperty]
+        public bool HideGameMenu { get; set; }
         public bool SaveExists { get; set; }
 
         public async Task OnGet()
@@ -41,23 +43,31 @@ namespace ScoreKeeper.Pages.Games
             Rummy = await _rummy.GetGame(1);
         }
 
-        public async Task OnGetGameOver()
+        /// <summary>
+        /// Start a new game, method called from Next Game option
+        /// </summary>
+        public async Task OnPostGameOver()
         {
+            HideGameMenu = true;
             Rummy = await _rummy.GetGame(1);
         }
 
-        public IActionResult OnPostNewGame()
-        {
 
+        public async Task OnPostNewGame()
+        {
+            HideGameMenu = true;
             if (_rummy.SaveExists(GameData.SaveAs).Result == true)
             {
                 SaveExists = true;
-                return Redirect("/Games/Rummy");
+                Redirect("/");
             }
-            //_rummy.StartGame(GameData.PlayerOne, GameData.PlayerTwo, GameData.SaveAs);
-            return Redirect("/Games/Rummy");
+            _rummy.StartGame(GameData.PlayerOne, GameData.PlayerTwo, GameData.SaveAs);
+            Redirect("/");
         }
 
+        /// <summary>
+        /// Takes the players scores for the round and adds them to the total
+        /// </summary>
         public async Task OnPostAddScore()
         {
             GameOver = await _rummy.AddScores(ScoreInput.PlayerOne, ScoreInput.PlayerTwo);
@@ -65,10 +75,14 @@ namespace ScoreKeeper.Pages.Games
             Rummy = await _rummy.GetGame(1);
             ScoreInput.PlayerOne = 0;
             ScoreInput.PlayerTwo = 0;
+            HideGameMenu = true;
             Redirect("/");
         }
     }
 
+    /// <summary>
+    /// Data objects for properties
+    /// </summary>
     public class GameData
     {
         public string PlayerOne { get; set; }

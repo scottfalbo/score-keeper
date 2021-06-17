@@ -56,6 +56,7 @@ namespace ScoreKeeper.Models.Interfaces.Services
             {
                 gameOver.AWinnerIsYou = playerOne > playerTwo ?
                     game.RummyPlayers[0].Player.Name : game.RummyPlayers[1].Player.Name;
+                if (playerOne == playerTwo) gameOver.AWinnerIsYou = "It's a tie!";
                 gameOver.GameOver = true;
                 gameOver.PlayerOneScore = playerOne;
                 gameOver.PlayerTwoScore = playerTwo;
@@ -192,8 +193,11 @@ namespace ScoreKeeper.Models.Interfaces.Services
             {
                 game.RummyPlayers[0].Player.Wins++;
             }
-            else
+            else if (game.RummyPlayers[1].Player.PlayerScores[^1].Score.Points >
+                game.RummyPlayers[0].Player.PlayerScores[^1].Score.Points)
+            {
                 game.RummyPlayers[1].Player.Wins++;
+            }
             await ClearScoreSheet(game);
         }
         /// ------------------------ End score adding methods-----------------------
