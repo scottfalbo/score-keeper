@@ -18,8 +18,4 @@
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages\Shared\Games\" />
-  </ItemGroup>
-
 </Project>

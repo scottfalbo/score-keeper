@@ -23,9 +23,13 @@ namespace ScoreKeeper.Models.Interfaces.Services
         /// </summary>
         /// <param name="scoreOne"> player one score </param>
         /// <param name="scoreTwo"> player two score </param>
-        public async Task<bool> AddScores(int scoreOne, int scoreTwo)
+        /// ///<returns> true if winner </returns>
+        public async Task<Winner> AddScores(int scoreOne, int scoreTwo)
         {
-            bool gameOver = false;
+            Winner gameOver = new Winner()
+            {
+                GameOver = false
+            };
             Rummy game = await GetGame(1);
             if (game.RummyPlayers[0].Player.PlayerScores.Count() == 0)
             { 
@@ -44,7 +48,11 @@ namespace ScoreKeeper.Models.Interfaces.Services
 
                 if (playerOneTotal >= 1000 || playerTwoTotal >= 1000)
                 {
-                    gameOver = true;
+                    gameOver.AWinnerIsYou = playerOneTotal > playerTwoTotal ?
+                        game.RummyPlayers[0].Player.Name : game.RummyPlayers[1].Player.Name;
+                    gameOver.GameOver = true;
+                    gameOver.PlayerOneScore = playerOneTotal;
+                    gameOver.PlayerTwoScore = playerTwoTotal;
                     await Winner(game.Id);
                 }
             }
@@ -63,7 +71,7 @@ namespace ScoreKeeper.Models.Interfaces.Services
 
         public void StartGame(string playerOne, string playerTwo, string save)
         {
-
+            //TODO: this
         }
 
         public void Undo()
@@ -71,9 +79,13 @@ namespace ScoreKeeper.Models.Interfaces.Services
             throw new NotImplementedException();
         }
 
-        public bool SaveExists(string save)
+        public async Task<bool> SaveExists(string save)
         {
-            return false;
+            var saveName = await _db.Rummy
+                .Where(x => x.SaveAs == save)
+                .Select(y => new Rummy
+                {}).FirstOrDefaultAsync();
+            return saveName != null ? true : false;
         }
 
         private void SaveGame(Rummy game)
@@ -180,14 +192,20 @@ namespace ScoreKeeper.Models.Interfaces.Services
             await ClearScoreSheet(game);
         }
         /// ------------------------ End score adding methods-----------------------
-        
 
+        /// <summary>
+        /// Driver method that clears the score sheet and removes data from database after each game
+        /// </summary>
+        /// <param name="game"> Rummy object </param>
         public async Task ClearScoreSheet(Rummy game)
         {
             await RemovePlayerScores(game.RummyPlayers[0].Player);
             await RemovePlayerScores(game.RummyPlayers[1].Player);
         }
-
+        /// <summary>
+        /// Go through the players PlayerScore List and remove each Score and Join Table
+        /// </summary>
+        /// <param name="player"> Player object </param>
         private async Task RemovePlayerScores(Player player)
         {
             List<PlayerScore> playerScores = new List<PlayerScore>();
@@ -206,11 +224,26 @@ namespace ScoreKeeper.Models.Interfaces.Services
             }
         }
 
+        /// <summary>
+        /// Remove a Score from the database by id
+        /// </summary>
+        /// <param name="id"> score id </param>
         private async Task RemoveScore(int id)
         {
             Score score = await _db.Scores.FindAsync(id);
             _db.Entry(score).State = EntityState.Deleted;
             await _db.SaveChangesAsync();
         }
+    }
+
+    /// <summary>
+    /// Winner object to return when game is over
+    /// </summary>
+    public class Winner
+    {
+        public bool GameOver { get; set; }
+        public string AWinnerIsYou { get; set; }
+        public int PlayerOneScore { get; set; }
+        public int PlayerTwoScore { get; set; }
     }
 }

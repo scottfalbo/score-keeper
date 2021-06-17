@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ScoreKeeper.Data;
 using ScoreKeeper.Models;
 using ScoreKeeper.Models.Interfaces;
+using ScoreKeeper.Models.Interfaces.Services;
 
 namespace ScoreKeeper.Pages.Games
 {
@@ -29,7 +30,7 @@ namespace ScoreKeeper.Pages.Games
         [BindProperty]
         public ScoreInput ScoreInput { get; set; }
         [BindProperty]
-        public bool GameOver { get; set; }
+        public Winner GameOver { get; set; }
         public bool SaveExists { get; set; }
 
         public async Task OnGet()
@@ -39,12 +40,12 @@ namespace ScoreKeeper.Pages.Games
 
         public IActionResult OnPostNewGame()
         {
-            Console.WriteLine("");
-            //if (_rummy.SaveExists(GameData.SaveAs))
-            //{
-            //    SaveExists = true;
-            //    return Redirect("/Games/Rummy");
-            //}
+
+            if (_rummy.SaveExists(GameData.SaveAs).Result == true)
+            {
+                SaveExists = true;
+                return Redirect("/Games/Rummy");
+            }
             //_rummy.StartGame(GameData.PlayerOne, GameData.PlayerTwo, GameData.SaveAs);
             return Redirect("/Games/Rummy");
         }
