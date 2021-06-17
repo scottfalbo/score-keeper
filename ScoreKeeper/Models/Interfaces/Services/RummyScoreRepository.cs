@@ -61,9 +61,9 @@ namespace ScoreKeeper.Models.Interfaces.Services
             throw new NotImplementedException();
         }
 
-        public async Task<int> StartGame(string playerOne, string playerTwo, string save, int limit)
+        public async Task<int> StartGame(string playerOne, string playerTwo, int limit)
         {
-            await MakeNewGame(save, limit);
+            await MakeNewGame(limit);
             int gameId = GetGameId().Result;
             await CreatePlayer(playerOne);
             int playerOneId = await GetPlayerId();
@@ -109,11 +109,10 @@ namespace ScoreKeeper.Models.Interfaces.Services
             return (games.Last()).Id;
         }
 
-        private async Task MakeNewGame(string save, int limit)
+        private async Task MakeNewGame(int limit)
         {
             Rummy game = new Rummy()
             {
-                SaveAs = save,
                 Limit = limit
             };
             _db.Entry(game).State = EntityState.Added;
@@ -126,7 +125,6 @@ namespace ScoreKeeper.Models.Interfaces.Services
                 .Select(x => new Rummy
                 {
                     Id = x.Id,
-                    SaveAs = x.SaveAs,
                     Limit = x.Limit
                 }).ToListAsync();
             return (games.Last()).Id;
@@ -135,15 +133,6 @@ namespace ScoreKeeper.Models.Interfaces.Services
         public void Undo()
         {
             throw new NotImplementedException();
-        }
-
-        public async Task<bool> SaveExists(string save)
-        {
-            var saveName = await _db.Rummy
-                .Where(x => x.SaveAs == save)
-                .Select(y => new Rummy
-                {}).FirstOrDefaultAsync();
-            return saveName != null ? true : false;
         }
 
 
@@ -162,7 +151,6 @@ namespace ScoreKeeper.Models.Interfaces.Services
                 .Select(z => new Rummy
                 {
                     Id = z.Id,
-                    SaveAs = z.SaveAs,
                     RummyPlayers = z.RummyPlayers
                 }).FirstOrDefaultAsync();
         }

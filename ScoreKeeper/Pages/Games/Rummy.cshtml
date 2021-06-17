@@ -3,8 +3,6 @@
 @{
 }
 
-<h1>Rummy</h1>
-
 <div>
     @await Component.InvokeAsync("PlayerNames")
 </div>
@@ -34,9 +32,4 @@
 @if (Model.GameOver.GameOver)
 {
     <partial name="Games/Rummy/_GameOver" />
-}
-
-@if (Model.SaveExists)
-{
-    <partial name="Games/Rummy/_GameExists" />
 }

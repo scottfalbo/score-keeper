@@ -41,13 +41,13 @@ namespace ScoreKeeper.Pages.Games
         public bool HideGameMenu { get; set; }
         [BindProperty]
         public bool HideMainMenu { get; set; }
-        public bool SaveExists { get; set; }
 
         public async Task OnGet()
         {
             HideGameMenu = true;
-            int gameId = Int32.Parse(HttpContext.Request.Cookies["game id"]);
-            Rummy = await _rummy.GetGame(gameId);
+            string gameId = HttpContext.Request.Cookies["game id"];
+            int id = gameId != null ? Int32.Parse(gameId) : -1;
+            Rummy = await _rummy.GetGame(id);
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace ScoreKeeper.Pages.Games
             //    SaveExists = true;
             //    Redirect("/");
             //}
-            int gameId = await _rummy.StartGame(GameData.PlayerOne, GameData.PlayerTwo, GameData.SaveAs, GameData.Limit);
+            int gameId = await _rummy.StartGame(GameData.PlayerOne, GameData.PlayerTwo, GameData.Limit);
             MakeCookie(gameId);
 
             return Redirect("/Games/Rummy");
@@ -129,7 +129,6 @@ namespace ScoreKeeper.Pages.Games
     {
         public string PlayerOne { get; set; }
         public string PlayerTwo { get; set; }
-        public string SaveAs { get; set; }
         public int Limit { get; set; }
     }
 
