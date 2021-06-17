@@ -62,24 +62,17 @@ namespace ScoreKeeper.Pages.Games
             Rummy = await _rummy.GetGame(id);
         }
 
-
+        /// <summary>
+        /// Start a fresh score sheet with new players and limits
+        /// </summary>
         public async Task<IActionResult> OnPostNewGame()
         {
             HideGameMenu = true;
-            //if (_rummy.SaveExists(GameData.SaveAs).Result == true)
-            //{
-            //    SaveExists = true;
-            //    Redirect("/");
-            //}
-            int gameId = await _rummy.StartGame(GameData.PlayerOne, GameData.PlayerTwo, GameData.Limit);
+
+            int gameId = await _rummy.StartGame(GameData.PlayerOne, GameData.PlayerTwo, GameData.Limit, Rummy.Id);
             MakeCookie(gameId);
 
             return Redirect("/Games/Rummy");
-        }
-
-        public async Task OnPostLoadSaved()
-        {
-            //_rummy.ContinueGame()
         }
 
         /// <summary>

@@ -49,19 +49,24 @@ namespace ScoreKeeper.Models.Interfaces.Services
             return await CheckWinner(scoreOne, scoreTwo, game);
         }
 
-
-
-        public void ContinueGame(string SaveAs)
+        public void Undo()
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteGame()
+        public void DeleteGame(int id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<int> StartGame(string playerOne, string playerTwo, int limit)
+        /// <summary>
+        /// Starts a fresh score sheet for players
+        /// </summary>
+        /// <param name="playerOne"> string player one </param>
+        /// <param name="playerTwo"> string player two </param>
+        /// <param name="limit"> int game limit </param>
+        /// <returns> int new game id </returns>
+        public async Task<int> StartGame(string playerOne, string playerTwo, int limit, int currentId)
         {
             await MakeNewGame(limit);
             int gameId = GetGameId().Result;
@@ -75,6 +80,11 @@ namespace ScoreKeeper.Models.Interfaces.Services
             return gameId;
         }
 
+        /// <summary>
+        /// RummyPlayer join table to put new players into the game object
+        /// </summary>
+        /// <param name="gameId"> game id </param>
+        /// <param name="playerId"> player id </param>
         private async Task AssignPlayer(int gameId, int playerId)
         {
             RummyPlayer player = new RummyPlayer()
@@ -86,6 +96,10 @@ namespace ScoreKeeper.Models.Interfaces.Services
             await _db.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Create a new player object from form input and put into database
+        /// </summary>
+        /// <param name="name"> string player name </param>
         private async Task CreatePlayer(string name)
         {
             Player newPlayer = new Player()
@@ -97,6 +111,10 @@ namespace ScoreKeeper.Models.Interfaces.Services
             await _db.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Get the id of the last player added to the database
+        /// </summary>
+        /// <returns> int Player.Id </returns>
         private async Task<int> GetPlayerId()
         {
             List<Player> games = await _db.Players
@@ -109,6 +127,10 @@ namespace ScoreKeeper.Models.Interfaces.Services
             return (games.Last()).Id;
         }
 
+        /// <summary>
+        /// Create a new game object and add it to database
+        /// </summary>
+        /// <param name="limit"> int limit </param>
         private async Task MakeNewGame(int limit)
         {
             Rummy game = new Rummy()
@@ -119,6 +141,10 @@ namespace ScoreKeeper.Models.Interfaces.Services
             await _db.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Get id of last game in the database
+        /// </summary>
+        /// <returns> int Rummy.Id </returns>
         private async Task<int> GetGameId()
         {
             List<Rummy> games = await _db.Rummy
@@ -129,12 +155,6 @@ namespace ScoreKeeper.Models.Interfaces.Services
                 }).ToListAsync();
             return (games.Last()).Id;
         }
-
-        public void Undo()
-        {
-            throw new NotImplementedException();
-        }
-
 
         /// <summary>
         /// Get a game score sheet by id
