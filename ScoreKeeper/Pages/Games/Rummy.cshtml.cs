@@ -46,7 +46,8 @@ namespace ScoreKeeper.Pages.Games
         public async Task OnGet()
         {
             HideGameMenu = true;
-            Rummy = await _rummy.GetGame(1);
+            int gameId = Int32.Parse(HttpContext.Request.Cookies["game id"]);
+            Rummy = await _rummy.GetGame(gameId);
         }
 
         /// <summary>
@@ -56,22 +57,23 @@ namespace ScoreKeeper.Pages.Games
         {
             HideGameMenu = true;
             HideMainMenu = true;
-            Rummy = await _rummy.GetGame(1);
+            int gameId = Int32.Parse(HttpContext.Request.Cookies["game id"]);
+            Rummy = await _rummy.GetGame(gameId);
         }
 
 
-        public async Task OnPostNewGame()
+        public async Task<IActionResult> OnPostNewGame()
         {
             HideGameMenu = true;
-            if (_rummy.SaveExists(GameData.SaveAs).Result == true)
-            {
-                SaveExists = true;
-                Redirect("/");
-            }
+            //if (_rummy.SaveExists(GameData.SaveAs).Result == true)
+            //{
+            //    SaveExists = true;
+            //    Redirect("/");
+            //}
             int gameId = await _rummy.StartGame(GameData.PlayerOne, GameData.PlayerTwo, GameData.SaveAs, GameData.Limit);
             MakeCookie(gameId);
 
-            Redirect("/");
+            return Redirect("/Games/Rummy");
         }
 
         public async Task OnPostLoadSaved()
@@ -93,9 +95,10 @@ namespace ScoreKeeper.Pages.Games
         /// </summary>
         public async Task OnPostAddScore()
         {
-            GameOver = await _rummy.AddScores(ScoreInput.PlayerOne, ScoreInput.PlayerTwo);
+            GameOver = await _rummy.AddScores(ScoreInput.PlayerOne, ScoreInput.PlayerTwo, Rummy.Id);
             NextGame = GameOver.GameOver;
-            Rummy = await _rummy.GetGame(1);
+            int gameId = Int32.Parse(HttpContext.Request.Cookies["game id"]);
+            Rummy = await _rummy.GetGame(gameId);
             ScoreInput.PlayerOne = 0;
             ScoreInput.PlayerTwo = 0;
             HideGameMenu = true;

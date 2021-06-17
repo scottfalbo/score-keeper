@@ -27,9 +27,9 @@ namespace ScoreKeeper.Models.Interfaces.Services
         /// <param name="scoreOne"> player one score </param>
         /// <param name="scoreTwo"> player two score </param>
         /// ///<returns> true if winner </returns>
-        public async Task<Winner> AddScores(int scoreOne, int scoreTwo)
+        public async Task<Winner> AddScores(int scoreOne, int scoreTwo, int gameId)
         {
-            Rummy game = await GetGame(1);
+            Rummy game = await GetGame(gameId);
             if (game.RummyPlayers[0].Player.PlayerScores.Count() == 0)
             { 
                 await ScoreController(scoreOne, game, 0);
@@ -69,10 +69,21 @@ namespace ScoreKeeper.Models.Interfaces.Services
             int playerOneId = await GetPlayerId();
             await CreatePlayer(playerTwo);
             int playerTwoId = await GetPlayerId();
-
-            ///join players to rummy table
+            await AssignPlayer(gameId, playerOneId);
+            await AssignPlayer(gameId, playerTwoId);
 
             return gameId;
+        }
+
+        private async Task AssignPlayer(int gameId, int playerId)
+        {
+            RummyPlayer player = new RummyPlayer()
+            {
+                PlayerId = playerId,
+                RummyId = gameId
+            };
+            _db.Entry(player).State = EntityState.Added;
+            await _db.SaveChangesAsync();
         }
 
         private async Task CreatePlayer(string name)
@@ -140,10 +151,10 @@ namespace ScoreKeeper.Models.Interfaces.Services
         /// Get a game score sheet by id
         /// </summary>
         /// <param name="Id"> Rummy object id </param>
-        public async Task<Rummy> GetGame(int Id)
+        public async Task<Rummy> GetGame(int id)
         {
             return await _db.Rummy
-                .Where(x => x.Id == 1)
+                .Where(x => x.Id == id)
                 .Include(y => y.RummyPlayers)
                 .ThenInclude(a => a.Player)
                 .ThenInclude(b => b.PlayerScores)

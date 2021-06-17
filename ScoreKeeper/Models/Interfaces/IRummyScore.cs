@@ -10,7 +10,7 @@ namespace ScoreKeeper.Models.Interfaces
     {
         public Task<int> StartGame(string playerOne, string playerTwo, string SaveAs, int limit);
         public void ContinueGame(string SaveAs);
-        public Task<Winner> AddScores(int scoreOne, int scoreTwo);
+        public Task<Winner> AddScores(int scoreOne, int scoreTwo, int gameId);
         public void Undo();
         public void DeleteGame();
         public Task<bool> SaveExists(string save);
