@@ -26,10 +26,6 @@ namespace ScoreKeeper.Models.Interfaces.Services
         /// ///<returns> true if winner </returns>
         public async Task<Winner> AddScores(int scoreOne, int scoreTwo)
         {
-            Winner gameOver = new Winner()
-            {
-                GameOver = false
-            };
             Rummy game = await GetGame(1);
             if (game.RummyPlayers[0].Player.PlayerScores.Count() == 0)
             { 
@@ -41,20 +37,29 @@ namespace ScoreKeeper.Models.Interfaces.Services
                 List<Score> scores = await GetScores();
                 await ScoreController(scoreOne, game, 0);
                 await ScoreController(scoreTwo, game, 1);
-                int playerOneTotal = scoreOne + scores[^2].Points;
-                int playerTwoTotal = scoreTwo + scores[^1].Points;
-                await ScoreController(playerOneTotal, game, 0);
-                await ScoreController(playerTwoTotal, game, 1);
+                scoreOne += scores[^2].Points;
+                scoreTwo += scores[^1].Points;
+                await ScoreController(scoreOne, game, 0);
+                await ScoreController(scoreTwo, game, 1);
 
-                if (playerOneTotal >= 1000 || playerTwoTotal >= 1000)
-                {
-                    gameOver.AWinnerIsYou = playerOneTotal > playerTwoTotal ?
-                        game.RummyPlayers[0].Player.Name : game.RummyPlayers[1].Player.Name;
-                    gameOver.GameOver = true;
-                    gameOver.PlayerOneScore = playerOneTotal;
-                    gameOver.PlayerTwoScore = playerTwoTotal;
-                    await Winner(game.Id);
-                }
+            }
+            return await CheckWinner(scoreOne, scoreTwo, game);
+        }
+
+        private async Task<Winner> CheckWinner(int playerOne, int playerTwo, Rummy game)
+        {
+            Winner gameOver = new Winner()
+            {
+                GameOver = false
+            };
+            if (playerOne >= 1000 || playerTwo >= 1000)
+            {
+                gameOver.AWinnerIsYou = playerOne > playerTwo ?
+                    game.RummyPlayers[0].Player.Name : game.RummyPlayers[1].Player.Name;
+                gameOver.GameOver = true;
+                gameOver.PlayerOneScore = playerOne;
+                gameOver.PlayerTwoScore = playerTwo;
+                await Winner(game.Id);
             }
             return gameOver;
         }

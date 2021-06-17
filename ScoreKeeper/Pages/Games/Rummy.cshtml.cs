@@ -21,6 +21,7 @@ namespace ScoreKeeper.Pages.Games
         {
             _rummy = rummy;
             _db = context;
+            GameOver = new Winner();
         }
 
         [BindProperty]
@@ -31,9 +32,16 @@ namespace ScoreKeeper.Pages.Games
         public ScoreInput ScoreInput { get; set; }
         [BindProperty]
         public Winner GameOver { get; set; }
+        [BindProperty]
+        public bool NextGame { get; set; }
         public bool SaveExists { get; set; }
 
         public async Task OnGet()
+        {
+            Rummy = await _rummy.GetGame(1);
+        }
+
+        public async Task OnGetGameOver()
         {
             Rummy = await _rummy.GetGame(1);
         }
@@ -50,10 +58,14 @@ namespace ScoreKeeper.Pages.Games
             return Redirect("/Games/Rummy");
         }
 
-        public async Task<IActionResult> OnPostAddScore()
+        public async Task OnPostAddScore()
         {
             GameOver = await _rummy.AddScores(ScoreInput.PlayerOne, ScoreInput.PlayerTwo);
-            return Redirect("/Games/Rummy");
+            NextGame = GameOver.GameOver;
+            Rummy = await _rummy.GetGame(1);
+            ScoreInput.PlayerOne = 0;
+            ScoreInput.PlayerTwo = 0;
+            Redirect("/");
         }
     }
 
