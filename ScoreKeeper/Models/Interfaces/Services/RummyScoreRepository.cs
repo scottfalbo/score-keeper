@@ -23,8 +23,9 @@ namespace ScoreKeeper.Models.Interfaces.Services
         /// </summary>
         /// <param name="scoreOne"> player one score </param>
         /// <param name="scoreTwo"> player two score </param>
-        public async Task AddScores(int scoreOne, int scoreTwo)
+        public async Task<bool> AddScores(int scoreOne, int scoreTwo)
         {
+            bool gameOver = false;
             Rummy game = await GetGame(1);
             if (game.RummyPlayers[0].Player.PlayerScores.Count() == 0)
             { 
@@ -42,8 +43,12 @@ namespace ScoreKeeper.Models.Interfaces.Services
                 await ScoreController(playerTwoTotal, game, 1);
 
                 if (playerOneTotal >= 1000 || playerTwoTotal >= 1000)
+                {
+                    gameOver = true;
                     await Winner(game.Id);
+                }
             }
+            return gameOver;
         }
 
         public void ContinueGame(string SaveAs)
