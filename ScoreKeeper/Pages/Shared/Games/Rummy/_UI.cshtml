@@ -1,12 +1,24 @@
 ﻿@model ScoreKeeper.Pages.Games.RummyModel
 
 
-new game
-
-delete
-
-reset
-
-undo 
-
-quit
+<div>
+    <div>
+        <ul>
+            <li>
+                <form asp-page-handler="New" method="post">
+                    <input type="submit" value="new game" />
+                </form>
+            </li>
+            <li>
+                <form asp-page-handler="Reset" method="post">
+                    <input type="submit" value="reset" />
+                </form>
+            </li>
+            <li>
+                <a asp-page="/Index">
+                    <div>Quit</div>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

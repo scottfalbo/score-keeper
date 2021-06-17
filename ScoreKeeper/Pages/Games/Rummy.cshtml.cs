@@ -39,8 +39,6 @@ namespace ScoreKeeper.Pages.Games
         public bool NextGame { get; set; }
         [BindProperty]
         public bool HideGameMenu { get; set; }
-        [BindProperty]
-        public bool HideMainMenu { get; set; }
 
         public async Task OnGet()
         {
@@ -56,7 +54,6 @@ namespace ScoreKeeper.Pages.Games
         public async Task OnPostGameOver()
         {
             HideGameMenu = true;
-            HideMainMenu = true;
             string gameId = HttpContext.Request.Cookies["game id"];
             int id = gameId != null ? Int32.Parse(gameId) : -1;
             Rummy = await _rummy.GetGame(id);
@@ -83,7 +80,6 @@ namespace ScoreKeeper.Pages.Games
         /// </summary>
         public void OnPostNewGameMenu()
         {
-            HideMainMenu = true;
             HideGameMenu = false;
         }
 
@@ -100,9 +96,17 @@ namespace ScoreKeeper.Pages.Games
             ScoreInput.PlayerOne = 0;
             ScoreInput.PlayerTwo = 0;
             HideGameMenu = true;
-            HideMainMenu = true;
             Redirect("/");
         }
+
+        public void OnPostNew()
+        {
+            HideGameMenu = false;
+        }
+
+        // reset current game
+
+        // quit
 
         /// <summary>
         /// Save the gameId as a cookie for later access
