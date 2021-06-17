@@ -1,4 +1,16 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿'use strict';
 
-// Write your Javascript code.
+
+//function scrollToBottom() {
+//    var element = document.getElementById("scroll-me-dev");
+//    element.scrollTop = element.scrollHeight;
+//}
+
+const theElement = document.getElementById('dev');
+
+const scrollToBottom = (node) => {
+	node.scrollTop = node.scrollHeight;
+}
+
+scrollToBottom(theElement);
+

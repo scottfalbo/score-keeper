@@ -25,4 +25,7 @@ A simple web application to keep track of scores for various card and board game
     + `Microsoft.EntityFrameworkCore.Tools`
     + `Newtonsoft.Json`
     + `System.Configuration.ConfigurationManager`
-
+  + 06/16/2021
+    + Moved player names and wins to view component.
+    + Built out methods to add scores to the database and to the `PlayerScore List`
+    + Wrote logic to add the scores as they are submitted updating the view.  Game resets when a player reaches goal.
