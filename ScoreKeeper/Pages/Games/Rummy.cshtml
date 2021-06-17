@@ -20,49 +20,22 @@
 </div>
 <div>controls</div>
 
-@*<section>
-        new / continue
-    </section>*@
+@if(!Model.HideMainMenu)
+{
+    <partial name="Games/Rummy/_MainMenu" />
+}
 
 @if (!Model.HideGameMenu)
 {
-    <section>
-        <h2>New Game</h2>
-        <p>enter your name</p>
-        <form asp-page-handler="NewGame" method="post">
-            <input type="text" asp-for="GameData.PlayerOne" placeholder="player one" required/>
-            <input type="text" asp-for="GameData.PlayerTwo" placeholder="player two" required/>
-            <input type="text" asp-for="GameData.Limit" placeholder="" required/>
-            <input type="text" asp-for="GameData.SaveAs" placeholder="save as" required/>
-            <input type="submit" value="start game" />
-        </form>
-    </section>
+    <partial name="Games/Rummy/_NewGame" />
 }
-@if(Model.SaveExists)
-            {
-                <p>hello</p>
-            }
-            else
-            {
-                <p>nope</p>
-            }
-
-@*<section>
-        <h2>Continue Game</h2>
-        <p>enter your name</p>
-        <form asp-for-handler="ContinueGame" method="post">
-            <input type="text" asp-for="GameName" placeholder="name" />
-            <input type="submit" value="start game" />
-        </form>
-    </section>*@
-
-<section>
-    @* if (@Model.SaveExists) show pop
-        over write or cancel
-    *@
-</section>
 
 @if (Model.GameOver.GameOver)
 {
-    <partial name="Games/_GameOver" />
+    <partial name="Games/Rummy/_GameOver" />
+}
+
+@if (Model.SaveExists)
+{
+    <partial name="Games/Rummy/_GameExists" />
 }

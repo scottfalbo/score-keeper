@@ -36,10 +36,13 @@ namespace ScoreKeeper.Pages.Games
         public bool NextGame { get; set; }
         [BindProperty]
         public bool HideGameMenu { get; set; }
+        [BindProperty]
+        public bool HideMainMenu { get; set; }
         public bool SaveExists { get; set; }
 
         public async Task OnGet()
         {
+            HideGameMenu = true;
             Rummy = await _rummy.GetGame(1);
         }
 
@@ -49,6 +52,7 @@ namespace ScoreKeeper.Pages.Games
         public async Task OnPostGameOver()
         {
             HideGameMenu = true;
+            HideMainMenu = true;
             Rummy = await _rummy.GetGame(1);
         }
 
@@ -65,6 +69,12 @@ namespace ScoreKeeper.Pages.Games
             Redirect("/");
         }
 
+        public void OnPostNewGameMenu()
+        {
+            HideMainMenu = true;
+            HideGameMenu = false;
+        }
+
         /// <summary>
         /// Takes the players scores for the round and adds them to the total
         /// </summary>
@@ -76,6 +86,7 @@ namespace ScoreKeeper.Pages.Games
             ScoreInput.PlayerOne = 0;
             ScoreInput.PlayerTwo = 0;
             HideGameMenu = true;
+            HideMainMenu = true;
             Redirect("/");
         }
     }
