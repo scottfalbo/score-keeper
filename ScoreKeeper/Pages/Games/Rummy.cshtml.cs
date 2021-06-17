@@ -96,17 +96,29 @@ namespace ScoreKeeper.Pages.Games
             ScoreInput.PlayerOne = 0;
             ScoreInput.PlayerTwo = 0;
             HideGameMenu = true;
-            Redirect("/");
+            Redirect("/Games/Rummy");
         }
 
+        /// <summary>
+        /// Toggles the new game interface on
+        /// </summary>
         public void OnPostNew()
         {
             HideGameMenu = false;
         }
 
-        // reset current game
+        /// <summary>
+        /// Reset the current win trackers and score sheet
+        /// </summary>
+        public async Task<IActionResult> OnPostReset()
+        {
+            string gameId = HttpContext.Request.Cookies["game id"];
+            int id = gameId != null ? Int32.Parse(gameId) : -1;
+            Rummy = await _rummy.GetGame(id);
+            await _rummy.ResetCurrent(Rummy);
 
-        // quit
+            return Redirect("/Games/Rummy");
+        }
 
         /// <summary>
         /// Save the gameId as a cookie for later access

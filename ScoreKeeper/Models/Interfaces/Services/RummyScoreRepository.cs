@@ -49,11 +49,10 @@ namespace ScoreKeeper.Models.Interfaces.Services
             return await CheckWinner(scoreOne, scoreTwo, game);
         }
 
-        public Task Undo(Rummy game)
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// Driver method to delete game, player and join table data for current game
+        /// </summary>
+        /// <param name="game"> Rummy object </param>
         public async Task DeleteGame(Rummy game)
         {
             if(game.Id >= 0)
@@ -65,6 +64,11 @@ namespace ScoreKeeper.Models.Interfaces.Services
             }
         }
 
+        /// <summary>
+        /// Remove a RummyPlayer entry from database
+        /// </summary>
+        /// <param name="playerId"> player id </param>
+        /// <param name="gameId"> game id </param>
         private async Task RemoveRummyPlayer(int playerId, int gameId)
         {
             RummyPlayer rummyPlayer = await _db.RummyPlayers
@@ -75,10 +79,23 @@ namespace ScoreKeeper.Models.Interfaces.Services
             await RemovePlayer(playerId);
         }
 
+        /// <summary>
+        /// Remove a player record from the database
+        /// </summary>
+        /// <param name="playerId"> player id </param>
         private async Task RemovePlayer(int playerId)
         {
             Player player = await _db.Players.FindAsync(playerId);
             _db.Entry(player).State = EntityState.Deleted;
+            await _db.SaveChangesAsync();
+        }
+
+        public async Task ResetCurrent(Rummy game)
+        {
+            await ClearScoreSheet(game);
+            game.RummyPlayers[0].Player.Wins = 0;
+            game.RummyPlayers[1].Player.Wins = 0;
+            _db.Entry(game).State = EntityState.Modified;
             await _db.SaveChangesAsync();
         }
 

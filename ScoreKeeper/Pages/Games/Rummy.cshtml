@@ -10,7 +10,7 @@
     @await Component.InvokeAsync("RummyScore")
 </div>
 <div>
-    <form asp-page-handler="AddScore" method="post">
+    <form asp-page-handler="AddScore" method="post" id="dev">
         <input type="text" asp-for="ScoreInput.PlayerOne" placeholder="player one" required />
         <input type="text" asp-for="ScoreInput.PlayerTwo" placeholder="player two" required />
         <input type="hidden" asp-for="Rummy.Id" value="@Model.Rummy.Id" />
