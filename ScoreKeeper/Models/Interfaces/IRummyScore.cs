@@ -14,5 +14,6 @@ namespace ScoreKeeper.Models.Interfaces
         public void DeleteGame();
         public bool SaveExists(string save);
         public Task<Rummy> GetGame(int Id);
+        public Task ClearScoreSheet(Rummy game);
     }
 }

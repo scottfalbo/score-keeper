@@ -12,8 +12,8 @@ namespace ScoreKeeper.Data
         public DbSet<Rummy> Rummy { get; set; }
         public DbSet<Player> Players { get; set; }
         public DbSet<Score> Scores { get; set; }
-        public DbSet<Score> RummyPlayer { get; set; }
-        public DbSet<Score> PlayerScore { get; set; }
+        public DbSet<RummyPlayer> RummyPlayers { get; set; }
+        public DbSet<PlayerScore> PlayerScores { get; set; }
 
         public ScoreKeeperDbContext(DbContextOptions options) : base(options) { }
 
@@ -28,7 +28,8 @@ namespace ScoreKeeper.Data
                 new Rummy
                 {
                     Id = 1,
-                    SaveAs = "testGame"
+                    SaveAs = "testGame",
+                    Limit = 1000
                 });
 
             modelBuilder.Entity<Player>().HasData(

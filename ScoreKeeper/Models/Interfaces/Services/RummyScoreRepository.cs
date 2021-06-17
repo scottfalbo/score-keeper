@@ -41,7 +41,7 @@ namespace ScoreKeeper.Models.Interfaces.Services
                 await ScoreController(playerOneTotal, game, 0);
                 await ScoreController(playerTwoTotal, game, 1);
 
-                if (playerOneTotal >= game.Limit || playerTwoTotal >= game.Limit)
+                if (playerOneTotal >= 1000 || playerTwoTotal >= 1000)
                     await Winner(game.Id);
             }
         }
@@ -172,10 +172,40 @@ namespace ScoreKeeper.Models.Interfaces.Services
             }
             else
                 game.RummyPlayers[1].Player.Wins++;
-
-            await ScoreController(0, game, 0);
-            await ScoreController(0, game, 1);
+            await ClearScoreSheet(game);
         }
         /// ------------------------ End score adding methods-----------------------
+        
+
+        public async Task ClearScoreSheet(Rummy game)
+        {
+            await RemovePlayerScores(game.RummyPlayers[0].Player);
+            await RemovePlayerScores(game.RummyPlayers[1].Player);
+        }
+
+        private async Task RemovePlayerScores(Player player)
+        {
+            List<PlayerScore> playerScores = new List<PlayerScore>();
+            foreach (PlayerScore score in player.PlayerScores)
+            {
+                PlayerScore playerScore = await _db.PlayerScores
+                    .FirstOrDefaultAsync(x => x.ScoreId == score.ScoreId
+                                        && x.PlayerId == score.PlayerId);
+                playerScores.Add(playerScore);
+            }
+            foreach (PlayerScore playerScore in playerScores)
+            {
+                _db.Entry(playerScore).State = EntityState.Deleted;
+                await _db.SaveChangesAsync();
+                await RemoveScore(playerScore.ScoreId);
+            }
+        }
+
+        private async Task RemoveScore(int id)
+        {
+            Score score = await _db.Scores.FindAsync(id);
+            _db.Entry(score).State = EntityState.Deleted;
+            await _db.SaveChangesAsync();
+        }
     }
 }
