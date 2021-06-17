@@ -8,7 +8,7 @@ namespace ScoreKeeper.Models.Interfaces
 {
     public interface IRummyScore
     {
-        public void StartGame(string playerOne, string playerTwo, string SaveAs);
+        public Task<int> StartGame(string playerOne, string playerTwo, string SaveAs, int limit);
         public void ContinueGame(string SaveAs);
         public Task<Winner> AddScores(int scoreOne, int scoreTwo);
         public void Undo();

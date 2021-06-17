@@ -1,10 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using ScoreKeeper.Data;
-using ScoreKeeper.Pages.Games;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ScoreKeeper.Models.Interfaces.Services
 {
@@ -46,24 +49,7 @@ namespace ScoreKeeper.Models.Interfaces.Services
             return await CheckWinner(scoreOne, scoreTwo, game);
         }
 
-        private async Task<Winner> CheckWinner(int playerOne, int playerTwo, Rummy game)
-        {
-            Winner gameOver = new Winner()
-            {
-                GameOver = false
-            };
-            if (playerOne >= 1000 || playerTwo >= 1000)
-            {
-                gameOver.AWinnerIsYou = playerOne > playerTwo ?
-                    game.RummyPlayers[0].Player.Name : game.RummyPlayers[1].Player.Name;
-                if (playerOne == playerTwo) gameOver.AWinnerIsYou = "It's a tie!";
-                gameOver.GameOver = true;
-                gameOver.PlayerOneScore = playerOne;
-                gameOver.PlayerTwoScore = playerTwo;
-                await Winner(game.Id);
-            }
-            return gameOver;
-        }
+
 
         public void ContinueGame(string SaveAs)
         {
@@ -75,9 +61,38 @@ namespace ScoreKeeper.Models.Interfaces.Services
             throw new NotImplementedException();
         }
 
-        public void StartGame(string playerOne, string playerTwo, string save)
+        public async Task<int> StartGame(string playerOne, string playerTwo, string save, int limit)
         {
-            //TODO: this
+            ///create and add Rummy object to database
+            await MakeNewGame(save, limit);
+            int gameId = GetGameId().Result;
+            ///add players to database
+            ///join players to rummy table
+
+            return gameId;
+        }
+
+        private async Task MakeNewGame(string save, int limit)
+        {
+            Rummy game = new Rummy()
+            {
+                SaveAs = save,
+                Limit = limit
+            };
+            _db.Entry(game).State = EntityState.Added;
+            await _db.SaveChangesAsync();
+        }
+
+        private async Task<int> GetGameId()
+        {
+            List<Rummy> games = await _db.Rummy
+                .Select(x => new Rummy
+                {
+                    Id = x.Id,
+                    SaveAs = x.SaveAs,
+                    Limit = x.Limit
+                }).ToListAsync();
+            return (games.Last()).Id;
         }
 
         public void Undo()
@@ -94,10 +109,6 @@ namespace ScoreKeeper.Models.Interfaces.Services
             return saveName != null ? true : false;
         }
 
-        private void SaveGame(Rummy game)
-        {
-
-        }
 
         /// <summary>
         /// Get a game score sheet by id
@@ -199,6 +210,32 @@ namespace ScoreKeeper.Models.Interfaces.Services
                 game.RummyPlayers[1].Player.Wins++;
             }
             await ClearScoreSheet(game);
+        }
+
+        /// <summary>
+        /// Checks for a winner and returns and object with winner info
+        /// </summary>
+        /// <param name="playerOne"> player name </param>
+        /// <param name="playerTwo"> player name </param>
+        /// <param name="game"> Rummy object</param>
+        /// <returns> Winner object </returns>
+        private async Task<Winner> CheckWinner(int playerOne, int playerTwo, Rummy game)
+        {
+            Winner gameOver = new Winner()
+            {
+                GameOver = false
+            };
+            if (playerOne >= 1000 || playerTwo >= 1000)
+            {
+                gameOver.AWinnerIsYou = playerOne > playerTwo ?
+                    game.RummyPlayers[0].Player.Name : game.RummyPlayers[1].Player.Name;
+                if (playerOne == playerTwo) gameOver.AWinnerIsYou = "It's a tie!";
+                gameOver.GameOver = true;
+                gameOver.PlayerOneScore = playerOne;
+                gameOver.PlayerTwoScore = playerTwo;
+                await Winner(game.Id);
+            }
+            return gameOver;
         }
         /// ------------------------ End score adding methods-----------------------
 
