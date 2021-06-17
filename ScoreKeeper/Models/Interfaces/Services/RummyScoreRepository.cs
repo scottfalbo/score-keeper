@@ -49,14 +49,37 @@ namespace ScoreKeeper.Models.Interfaces.Services
             return await CheckWinner(scoreOne, scoreTwo, game);
         }
 
-        public void Undo()
+        public Task Undo(Rummy game)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteGame(int id)
+        public async Task DeleteGame(Rummy game)
         {
-            throw new NotImplementedException();
+            if(game.Id >= 0)
+            {
+                await RemoveRummyPlayer(game.RummyPlayers[0].Player.Id, game.Id);
+                await RemoveRummyPlayer(game.RummyPlayers[1].Player.Id, game.Id);
+                _db.Entry(game).State = EntityState.Deleted;
+                await _db.SaveChangesAsync();
+            }
+        }
+
+        private async Task RemoveRummyPlayer(int playerId, int gameId)
+        {
+            RummyPlayer rummyPlayer = await _db.RummyPlayers
+                .FirstOrDefaultAsync(x => x.RummyId == gameId
+                                    && x.PlayerId == playerId);
+            _db.Entry(rummyPlayer).State = EntityState.Deleted;
+            await _db.SaveChangesAsync();
+            await RemovePlayer(playerId);
+        }
+
+        private async Task RemovePlayer(int playerId)
+        {
+            Player player = await _db.Players.FindAsync(playerId);
+            _db.Entry(player).State = EntityState.Deleted;
+            await _db.SaveChangesAsync();
         }
 
         /// <summary>
@@ -66,7 +89,7 @@ namespace ScoreKeeper.Models.Interfaces.Services
         /// <param name="playerTwo"> string player two </param>
         /// <param name="limit"> int game limit </param>
         /// <returns> int new game id </returns>
-        public async Task<int> StartGame(string playerOne, string playerTwo, int limit, int currentId)
+        public async Task<int> StartGame(string playerOne, string playerTwo, int limit, Rummy game)
         {
             await MakeNewGame(limit);
             int gameId = GetGameId().Result;
@@ -76,7 +99,7 @@ namespace ScoreKeeper.Models.Interfaces.Services
             int playerTwoId = await GetPlayerId();
             await AssignPlayer(gameId, playerOneId);
             await AssignPlayer(gameId, playerTwoId);
-
+            await DeleteGame(game);
             return gameId;
         }
 

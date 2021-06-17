@@ -8,10 +8,10 @@ namespace ScoreKeeper.Models.Interfaces
 {
     public interface IRummyScore
     {
-        public Task<int> StartGame(string playerOne, string playerTwo, int limit, int currentId);
+        public Task<int> StartGame(string playerOne, string playerTwo, int limit, Rummy game);
         public Task<Winner> AddScores(int scoreOne, int scoreTwo, int gameId);
-        public void Undo();
-        public void DeleteGame(int id);
+        public Task Undo(Rummy game);
+        public Task DeleteGame(Rummy game);
         public Task<Rummy> GetGame(int id);
         public Task ClearScoreSheet(Rummy game);
     }

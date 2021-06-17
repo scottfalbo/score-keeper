@@ -68,9 +68,12 @@ namespace ScoreKeeper.Pages.Games
         public async Task<IActionResult> OnPostNewGame()
         {
             HideGameMenu = true;
+            string gameId = HttpContext.Request.Cookies["game id"];
+            int id = gameId != null ? Int32.Parse(gameId) : -1;
+            Rummy = await _rummy.GetGame(id);
 
-            int gameId = await _rummy.StartGame(GameData.PlayerOne, GameData.PlayerTwo, GameData.Limit, Rummy.Id);
-            MakeCookie(gameId);
+            id = await _rummy.StartGame(GameData.PlayerOne, GameData.PlayerTwo, GameData.Limit, Rummy);
+            MakeCookie(id);
 
             return Redirect("/Games/Rummy");
         }
