@@ -63,13 +63,39 @@ namespace ScoreKeeper.Models.Interfaces.Services
 
         public async Task<int> StartGame(string playerOne, string playerTwo, string save, int limit)
         {
-            ///create and add Rummy object to database
             await MakeNewGame(save, limit);
             int gameId = GetGameId().Result;
-            ///add players to database
+            await CreatePlayer(playerOne);
+            int playerOneId = await GetPlayerId();
+            await CreatePlayer(playerTwo);
+            int playerTwoId = await GetPlayerId();
+
             ///join players to rummy table
 
             return gameId;
+        }
+
+        private async Task CreatePlayer(string name)
+        {
+            Player newPlayer = new Player()
+            {
+                Name = name,
+                Wins = 0
+            };
+            _db.Entry(newPlayer).State = EntityState.Added;
+            await _db.SaveChangesAsync();
+        }
+
+        private async Task<int> GetPlayerId()
+        {
+            List<Player> games = await _db.Players
+                .Select(x => new Player
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Wins = x.Wins
+                }).ToListAsync();
+            return (games.Last()).Id;
         }
 
         private async Task MakeNewGame(string save, int limit)
@@ -130,7 +156,6 @@ namespace ScoreKeeper.Models.Interfaces.Services
                 }).FirstOrDefaultAsync();
         }
 
-        ///---------------------- Helper methods for adding score -------------------------
         /// <summary>
         /// Controller method to make a series of other method calls
         /// </summary>
@@ -237,7 +262,6 @@ namespace ScoreKeeper.Models.Interfaces.Services
             }
             return gameOver;
         }
-        /// ------------------------ End score adding methods-----------------------
 
         /// <summary>
         /// Driver method that clears the score sheet and removes data from database after each game
