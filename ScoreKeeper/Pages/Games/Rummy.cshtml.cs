@@ -85,10 +85,10 @@ namespace ScoreKeeper.Pages.Games
         /// </summary>
         public async Task OnPostAddScore()
         {
-            GameOver = await _rummy.AddScores(ScoreInput.PlayerOne, ScoreInput.PlayerTwo, Rummy.Id);
-            NextGame = GameOver.GameOver;
             int id = EatCookie();
             Rummy = await _rummy.GetGame(id);
+            GameOver = await _rummy.AddScores(ScoreInput.PlayerOne, ScoreInput.PlayerTwo, Rummy.Id);
+            NextGame = GameOver.GameOver;
             ScoreInput.PlayerOne = 0;
             ScoreInput.PlayerTwo = 0;
             HideGameMenu = true;
@@ -113,6 +113,14 @@ namespace ScoreKeeper.Pages.Games
             await _rummy.ResetCurrent(Rummy);
 
             return Redirect("/Games/Rummy");
+        }
+
+        /// <summary>
+        /// Cancel button to leave the new game window and return to current game
+        /// </summary>
+        public void OnPostCancel()
+        {
+            HideGameMenu = true;
         }
 
         /// <summary>

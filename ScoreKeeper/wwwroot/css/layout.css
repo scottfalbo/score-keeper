@@ -1,20 +1,32 @@
 ﻿/* ------------------ Homepage*/
 
+
 #main-page-menu > div:first-child {
     width: 90%;
     margin: 40px auto;
 }
 
-    #main-page-menu > ul {
+#main-page-menu > ul {
+    width: 95%;
+    margin: auto;
+}
+
+    #main-page-menu > ul > li {
+        width: 70%;
+        margin: 25px auto;
+    }
+
+    #main-page-menu .link-button {
+        width: 100%;
         margin: auto;
     }
 
-        #main-page-menu > ul > li {
-            width: 70%;
-            margin: 25px auto;
-        }
-
 /* ------------------ Footer */
+
+footer {
+    max-width: 540px;
+    height: 60px;
+}
 
 footer ul {
     width: 90%;
@@ -23,9 +35,9 @@ footer ul {
 
     footer ul > li {
         display: inline-block;
-        width: 50%;
         margin: auto;
         text-align: center;
+        float: right;
     }
 
 /* ---------------- Instructions */
@@ -68,10 +80,10 @@ footer ul {
 
 /* ------------------- Rummy Score*/
 
-#rummy-score {
+#rummy-score-keeper {
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 100px 3fr 80px 100px;
+    grid-template-rows: 100px 1fr 60px 70px;
 }
 
     #player-names {
@@ -86,7 +98,7 @@ footer ul {
             grid-column: 1/2;
             grid-row: 1/2;
             display: grid;
-            grid-template-columns: 80% 20%;
+            grid-template-columns: 50% 50%;
             grid-template-rows: 100%;
         }
 
@@ -144,7 +156,7 @@ footer ul {
 
         #rummy-score-input > form {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 40% 40% 20%;
             grid-template-rows: 100%;
         }
 
@@ -173,19 +185,93 @@ footer ul {
         }
 
             #rummy-ui ul {
-                width: 80%;
+                width: 90%;
                 margin: 20px auto;
+                display: flex;
+
             }
 
                 #rummy-ui ul li {
-                    width: 30%;
                     margin: auto;
                     display: inline-block;
                 }
+
+/* -------------------New Game Menu*/
+
+#rummy-new-game > div  h2 {
+    width: 60%;
+    margin: 30px auto;
+}
+
+#rummy-new-game > div p {
+    width: 80%;
+    margin: 20px auto;
+}
+
+#rummy-new-game > div > form {
+    width: 70%;
+    margin: 40px auto;
+}
+
+    #rummy-new-game > div > form div {
+        margin: 30px auto;
+    }
+
+#rummy-new-game > div > div:last-child {
+    width: 60%;
+    margin: 20px auto;
+}
+
+/* ------------------- Game Over Menu*/
+
+#rummy-game-over > div h2 {
+    width: 60%;
+    margin: 30px auto;
+}
+
+#rummy-game-over > div table {
+    width: 80%;
+    margin: 20px auto;
+}
+
+#rummy-game-over > div div:nth-child(3) {
+    width: 70%;
+    margin: 40px auto;
+}
+
+#rummy-game-over > div div:last-child {
+    width: 60%;
+    margin: 20px auto;
+}
+
+    #rummy-game-over > div div:last-child form {
+        width: 60%;
+        margin: 20px auto;
+    }
+
+    #rummy-game-over > div div:last-child > div {
+        width: 60%;
+        margin: 20px auto;
+    }
 
 /* -------------------- Shared */
 
 .section-container {
     width: 90%;
     margin: auto;
+}
+
+.menu-block-out {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0;
+    height: 100%;
+    z-index: 100;
+}
+
+.menu-block-out > div {
+    width: 80%;
+    height: 80%;
+    margin: 10% auto;
 }
