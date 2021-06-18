@@ -1,18 +1,18 @@
 ﻿@model ScoreKeeper.Components.RummyScore.ViewModel
 
 
-<div id="dev" class="temp-dev" onload="scrollToBottom()">
-    <section class="scroll-me-dev">
+<section id="rummy-score-sheet">
+    <div>
         @foreach (var item in Model.PlayerOnePoints)
         {
             <p>@item.Score.Points</p>
         }
-    </section>
-    <section class="scroll-me-dev">
+    </div>
+    <div>
         @foreach (var item in Model.PlayerTwoPoints)
         {
             <p>@item.Score.Points</p>
         }
-    </section>
-</div>
+    </div>
+</section>
 
