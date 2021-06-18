@@ -5,8 +5,10 @@
 
 body {
     /* Margin bottom by footer height */
+    margin: auto;
     margin-bottom: 60px;
-    max-width: 540px;
+    background-image: url("../images/paper-backer.jpg");
+    background-size: cover;
 }
 
 .footer {
