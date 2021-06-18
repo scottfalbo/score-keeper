@@ -315,7 +315,7 @@ namespace ScoreKeeper.Models.Interfaces.Services
             {
                 GameOver = false
             };
-            if (playerOne >= 1000 || playerTwo >= 1000)
+            if (playerOne >= game.Limit || playerTwo >= game.Limit)
             {
                 gameOver.AWinnerIsYou = playerOne > playerTwo ?
                     game.RummyPlayers[0].Player.Name : game.RummyPlayers[1].Player.Name;

@@ -18,6 +18,10 @@
                 <input type="submit" value="start game" />
             </div>
         </form>
-        <div><button>cancel</button></div>
+        <div>
+            <form asp-page-handler="Cancel" method="post">
+                <input type="submit" value="cancel" />
+            </form>
+        </div>
     </div>
 </section>

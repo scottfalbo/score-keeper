@@ -10,10 +10,10 @@
     <section id="rummy-score-input">
         <form asp-page-handler="AddScore" method="post">
             <div>
-                <input type="text" asp-for="ScoreInput.PlayerOne" placeholder="@Model.Rummy.RummyPlayers[0].Player.Name" required />
+                <input type="text" asp-for="ScoreInput.PlayerOne" placeholder="score" required />
             </div>
             <div>
-                <input type="text" asp-for="ScoreInput.PlayerTwo" placeholder="@Model.Rummy.RummyPlayers[1].Player.Name" required />
+                <input type="text" asp-for="ScoreInput.PlayerTwo" placeholder="score" required />
             </div>
             <input type="hidden" asp-for="Rummy.Id" value="@Model.Rummy.Id" />
             <div>

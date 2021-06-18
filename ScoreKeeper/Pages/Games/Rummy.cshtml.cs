@@ -115,6 +115,11 @@ namespace ScoreKeeper.Pages.Games
             return Redirect("/Games/Rummy");
         }
 
+        public void OnPostCancel()
+        {
+            HideGameMenu = true;
+        }
+
         /// <summary>
         /// Save the gameId as a cookie for later access
         /// </summary>
