@@ -3,11 +3,12 @@
 @{
 }
 
-@await Component.InvokeAsync("PlayerNames")
+<section id="rummy-score" class="section-container">
+    @await Component.InvokeAsync("PlayerNames")
 @await Component.InvokeAsync("RummyScore")
 
-<section class="rummy-score-input">
-    <form asp-page-handler="AddScore" method="post" id="dev">
+<section id="rummy-score-input">
+    <form asp-page-handler="AddScore" method="post">
         <div>
             <input type="text" asp-for="ScoreInput.PlayerOne" placeholder="player one" required />
         </div>
@@ -22,6 +23,7 @@
 </section>
 
 <partial name="Games/Rummy/_UI" />
+</section>
 
 @if (!Model.HideGameMenu)
 {
