@@ -16,6 +16,10 @@
 
 /* ------------------ Footer */
 
+footer {
+    max-width: 540px;
+}
+
 footer ul {
     width: 90%;
     margin: 20px auto;
@@ -185,32 +189,58 @@ footer ul {
 
 /* -------------------New Game Menu*/
 
-#rummy-new-game > div {
-    width: 80%;
-    height: 80%;
-    margin: 10% auto;
+#rummy-new-game > div  h2 {
+    width: 60%;
+    margin: 30px auto;
 }
 
-    #rummy-new-game > div  h2 {
-        width: 60%;
+#rummy-new-game > div p {
+    width: 80%;
+    margin: 20px auto;
+}
+
+#rummy-new-game > div > form {
+    width: 70%;
+    margin: 40px auto;
+}
+
+    #rummy-new-game > div > form div {
         margin: 30px auto;
     }
 
-    #rummy-new-game > div p {
-        width: 80%;
+#rummy-new-game > div > div:last-child {
+    width: 60%;
+    margin: 20px auto;
+}
+
+/* ------------------- Game Over Menu*/
+
+#rummy-game-over > div h2 {
+    width: 60%;
+    margin: 30px auto;
+}
+
+#rummy-game-over > div table {
+    width: 80%;
+    margin: 20px auto;
+}
+
+#rummy-game-over > div div:nth-child(3) {
+    width: 70%;
+    margin: 40px auto;
+}
+
+#rummy-game-over > div div:last-child {
+    width: 60%;
+    margin: 20px auto;
+}
+
+    #rummy-game-over > div div:last-child form {
+        width: 60%;
         margin: 20px auto;
     }
 
-    #rummy-new-game > div > form {
-        width: 70%;
-        margin: 40px auto;
-    }
-
-        #rummy-new-game > div > form div {
-            margin: 30px auto;
-        }
-
-    #rummy-new-game > div > div:last-child {
+    #rummy-game-over > div div:last-child > div {
         width: 60%;
         margin: 20px auto;
     }
@@ -229,4 +259,10 @@ footer ul {
     right: 0;
     height: 100%;
     z-index: 100;
+}
+
+.menu-block-out > div {
+    width: 80%;
+    height: 80%;
+    margin: 10% auto;
 }

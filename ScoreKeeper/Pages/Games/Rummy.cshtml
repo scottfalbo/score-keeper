@@ -25,10 +25,10 @@
 <partial name="Games/Rummy/_UI" />
 </section>
 
-@*@if (!Model.HideGameMenu)
-{*@
+@if (!Model.HideGameMenu)
+{
     <partial name="Games/Rummy/_NewGame" />
-@*}*@
+}
 
 @if (Model.GameOver.GameOver)
 {

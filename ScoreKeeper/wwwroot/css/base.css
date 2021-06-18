@@ -1,4 +1,8 @@
-﻿html {
+﻿* {
+    box-sizing: border-box;
+}
+
+html {
     position: relative;
     min-height: 100%;
 }
@@ -9,6 +13,12 @@ body {
     margin-bottom: 60px;
     background-image: url("../images/paper-backer.jpg");
     background-size: cover;
+}
+
+@media (min-width: 540px) {
+    body {
+        width: 540px;
+    }
 }
 
 .footer {
