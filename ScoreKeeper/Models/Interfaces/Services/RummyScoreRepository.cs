@@ -90,6 +90,11 @@ namespace ScoreKeeper.Models.Interfaces.Services
             await _db.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Reset
+        /// </summary>
+        /// <param name="game"></param>
+        /// <returns></returns>
         public async Task ResetCurrent(Rummy game)
         {
             await ClearScoreSheet(game);

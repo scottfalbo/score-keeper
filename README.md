@@ -34,4 +34,6 @@ A simple web application to keep track of scores for various card and board game
     + Added properties and logic to hide and show menu windows at the appropriate times.
     + Made a tracking cookie to keep track of the current users game id.
   + 06/17/2021
-    + 
+    + Stripped some menus and options away to make things feel less clunky.  
+    + Finished full CRUD actions for all tables, including score sheet creation and deletion.
+  
