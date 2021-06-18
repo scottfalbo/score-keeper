@@ -1,0 +1,191 @@
+﻿/* ------------------ Homepage*/
+
+#main-page-menu > div:first-child {
+    width: 90%;
+    margin: 40px auto;
+}
+
+    #main-page-menu > ul {
+        margin: auto;
+    }
+
+        #main-page-menu > ul > li {
+            width: 70%;
+            margin: 25px auto;
+        }
+
+/* ------------------ Footer */
+
+footer ul {
+    width: 90%;
+    margin: 20px auto;
+}
+
+    footer ul > li {
+        display: inline-block;
+        width: 50%;
+        margin: auto;
+        text-align: center;
+    }
+
+/* ---------------- Instructions */
+
+#instruction-manual > section {
+    width: 90%;
+    margin: 40px auto;
+}
+
+#instruction-manual > div {
+    width: 70%;
+    margin: 25px auto;
+}
+
+/*----------------------About */
+
+#about-me figure {
+    width: 60%;
+    margin: 10px auto;
+    text-align: center;
+}
+
+    #about-me figure img {
+        margin: 10px auto;
+    }
+
+    #about-me figure figcaption {
+        margin: 10px auto;
+    }
+
+#contact {
+    width: 90%;
+    margin: 20px auto;
+}
+
+#about-me div:last-child {
+    width: 70%;
+    margin: 20px auto;
+}
+
+/* ------------------- Rummy Score*/
+
+#rummy-score {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 100px 3fr 80px 100px;
+}
+
+    #player-names {
+        grid-column: 1/2;
+        grid-row: 1/2;
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 50px 50px;
+    }
+
+        #player-names div:first-child {
+            grid-column: 1/2;
+            grid-row: 1/2;
+            display: grid;
+            grid-template-columns: 80% 20%;
+            grid-template-rows: 100%;
+        }
+
+            #player-names div:first-child h2 {
+                grid-column: 1/2;
+                grid-row: 1/2;
+            }
+
+            #player-names div:first-child p {
+                grid-column: 2/3;
+                grid-row: 1/2;
+            }
+
+        #player-names div:last-child {
+            grid-column: 1/2;
+            grid-row: 2/3;
+            display: grid;
+            grid-template-columns: 50% 50%;
+            grid-template-rows: 100%;
+        }
+
+            #player-names div:last-child p:first-child {
+                grid-column: 1/2;
+                grid-row: 1/2;
+            }
+
+            #player-names div:last-child p:last-child {
+                grid-column: 2/3;
+                grid-row: 1/2;
+            }
+
+    #rummy-score-sheet {
+        grid-column: 1/2;
+        grid-row: 2/3;
+        margin: 20px;
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 100%;
+    }
+
+        #rummy-score-sheet div:first-child {
+            grid-column: 1/2;
+            grid-row: 1/2;
+        }
+
+        #rummy-score-sheet div:last-child {
+            grid-column: 2/3;
+            grid-row: 1/2;
+        }
+
+    #rummy-score-input {
+        grid-column: 1/2;
+        grid-row: 3/4;
+    }
+
+        #rummy-score-input > form {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 100%;
+        }
+
+            #rummy-score-input > form div:first-child {
+                grid-column: 1/2;
+                grid-row: 1/2;
+            }
+
+            #rummy-score-input > form div:nth-child(2) {
+                grid-column: 2/3;
+                grid-row: 1/2;
+            }
+
+            #rummy-score-input > form div:nth-child(4) {
+                grid-column: 3/4;
+                grid-row: 1/2;
+            }
+
+            #rummy-score-input input {
+                width: 100px;
+            }
+
+        #rummy-ui {
+            grid-column: 1/2;
+            grid-row: 4/5;
+        }
+
+            #rummy-ui ul {
+                width: 80%;
+                margin: 20px auto;
+            }
+
+                #rummy-ui ul li {
+                    width: 30%;
+                    margin: auto;
+                    display: inline-block;
+                }
+
+/* -------------------- Shared */
+
+.section-container {
+    width: 90%;
+    margin: auto;
+}

@@ -1,30 +1,27 @@
 ﻿@model ScoreKeeper.Pages.Games.RummyModel
 
-<div>
+<section id="rummy-game-over" class="menu-block-out">
+    <h2>Final Score</h2>
+    <table>
+        <tr>
+            <th>@Model.Rummy.RummyPlayers[0].Player.Name</th>
+            <th>@Model.Rummy.RummyPlayers[1].Player.Name</th>
+        </tr>
+        <tr>
+            <td>@Model.GameOver.PlayerOneScore</td>
+            <td>@Model.GameOver.PlayerTwoScore</td>
+        </tr>
+    </table>
     <div>
-        <h2>Final Score</h2>
-        <table>
-            <tr>
-                <th>@Model.Rummy.RummyPlayers[0].Player.Name</th>
-                <th>@Model.Rummy.RummyPlayers[1].Player.Name</th>
-            </tr>
-            <tr>
-                <td>@Model.GameOver.PlayerOneScore</td>
-                <td>@Model.GameOver.PlayerTwoScore</td>
-            </tr>
-        </table>
-        <div>
-            <p>Congratulations</p>
-            <p>@Model.GameOver.AWinnerIsYou</p>
-        </div>
-
-        <div>
-            <form asp-page-handler="GameOver" method="post">
-                <input type="submit" value="Next Game" />
-            </form>
-            <a asp-page="/Index">
-                <div>Quit</div>
-            </a>
-        </div>
+        <p>Congratulations</p>
+        <p>@Model.GameOver.AWinnerIsYou</p>
     </div>
-</div>
+    <div>
+        <form asp-page-handler="GameOver" method="post">
+            <input type="submit" value="Next Game" />
+        </form>
+        <a asp-page="/Index">
+            <div>Quit</div>
+        </a>
+    </div>
+</section>

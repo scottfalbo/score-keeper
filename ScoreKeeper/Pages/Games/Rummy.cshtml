@@ -3,27 +3,27 @@
 @{
 }
 
-<h1>Rummy</h1>
-
-<div>
+<section id="rummy-score" class="section-container">
     @await Component.InvokeAsync("PlayerNames")
-</div>
-<div>
-    @await Component.InvokeAsync("RummyScore")
-</div>
-<div>
-    <form asp-page-handler="AddScore" method="post">
-        <input type="text" asp-for="ScoreInput.PlayerOne" placeholder="player one" required />
-        <input type="text" asp-for="ScoreInput.PlayerTwo" placeholder="player two" required />
-        <input type="submit" value="add round" />
-    </form>
-</div>
-<div>controls</div>
+@await Component.InvokeAsync("RummyScore")
 
-@if(!Model.HideMainMenu)
-{
-    <partial name="Games/Rummy/_MainMenu" />
-}
+<section id="rummy-score-input">
+    <form asp-page-handler="AddScore" method="post">
+        <div>
+            <input type="text" asp-for="ScoreInput.PlayerOne" placeholder="player one" required />
+        </div>
+        <div>
+            <input type="text" asp-for="ScoreInput.PlayerTwo" placeholder="player two" required />
+        </div>
+        <input type="hidden" asp-for="Rummy.Id" value="@Model.Rummy.Id" />
+        <div>
+            <input type="submit" value="add round" />
+        </div>
+    </form>
+</section>
+
+<partial name="Games/Rummy/_UI" />
+</section>
 
 @if (!Model.HideGameMenu)
 {
@@ -33,9 +33,4 @@
 @if (Model.GameOver.GameOver)
 {
     <partial name="Games/Rummy/_GameOver" />
-}
-
-@if (Model.SaveExists)
-{
-    <partial name="Games/Rummy/_GameExists" />
 }

@@ -27,53 +27,30 @@ namespace ScoreKeeper.Data
             modelBuilder.Entity<Rummy>().HasData(
                 new Rummy
                 {
-                    Id = 1,
-                    SaveAs = "testGame",
+                    Id = -1,
                     Limit = 1000
                 });
 
             modelBuilder.Entity<Player>().HasData(
                 new Player
                 {
-                    Id = 1,
-                    Name = "Spaceghost",
+                    Id = -1,
+                    Name = "Player 1",
                     Wins = 0
                 },
                 new Player
                 {
-                    Id = 2,
-                    Name = "Harry Winston",
+                    Id = -2,
+                    Name = "Player 2",
                     Wins = 0
                 }
                 );
 
-            modelBuilder.Entity<Score>().HasData(
-                new Score
-                { Id = 1, Points = 100 },
-                new Score
-                { Id = 2, Points = 150 },
-                new Score
-                { Id = 3, Points = 80 },
-                new Score
-                { Id = 4, Points = 130 }
-                );
-
             modelBuilder.Entity<RummyPlayer>().HasData(
                 new RummyPlayer
-                { RummyId = 1, PlayerId = 1 },
+                { RummyId = -1, PlayerId = -1 },
                 new RummyPlayer
-                { RummyId = 1, PlayerId = 2 }
-                );
-
-            modelBuilder.Entity<PlayerScore>().HasData(
-                new PlayerScore
-                { PlayerId = 1, ScoreId =1 },
-                new PlayerScore
-                { PlayerId = 1, ScoreId = 2 },
-                new PlayerScore
-                { PlayerId = 2, ScoreId = 3 },
-                new PlayerScore
-                { PlayerId = 2, ScoreId = 4 }
+                { RummyId = -1, PlayerId = -2 }
                 );
 
         }

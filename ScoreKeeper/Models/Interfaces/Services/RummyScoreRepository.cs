@@ -27,9 +27,9 @@ namespace ScoreKeeper.Models.Interfaces.Services
         /// <param name="scoreOne"> player one score </param>
         /// <param name="scoreTwo"> player two score </param>
         /// ///<returns> true if winner </returns>
-        public async Task<Winner> AddScores(int scoreOne, int scoreTwo)
+        public async Task<Winner> AddScores(int scoreOne, int scoreTwo, int gameId)
         {
-            Rummy game = await GetGame(1);
+            Rummy game = await GetGame(gameId);
             if (game.RummyPlayers[0].Player.PlayerScores.Count() == 0)
             { 
                 await ScoreController(scoreOne, game, 0);
@@ -49,75 +49,166 @@ namespace ScoreKeeper.Models.Interfaces.Services
             return await CheckWinner(scoreOne, scoreTwo, game);
         }
 
-
-
-        public void ContinueGame(string SaveAs)
+        /// <summary>
+        /// Driver method to delete game, player and join table data for current game
+        /// </summary>
+        /// <param name="game"> Rummy object </param>
+        public async Task DeleteGame(Rummy game)
         {
-            throw new NotImplementedException();
+            if(game.Id >= 0)
+            {
+                await RemoveRummyPlayer(game.RummyPlayers[0].Player.Id, game.Id);
+                await RemoveRummyPlayer(game.RummyPlayers[1].Player.Id, game.Id);
+                _db.Entry(game).State = EntityState.Deleted;
+                await _db.SaveChangesAsync();
+            }
         }
 
-        public void DeleteGame()
+        /// <summary>
+        /// Remove a RummyPlayer entry from database
+        /// </summary>
+        /// <param name="playerId"> player id </param>
+        /// <param name="gameId"> game id </param>
+        private async Task RemoveRummyPlayer(int playerId, int gameId)
         {
-            throw new NotImplementedException();
+            RummyPlayer rummyPlayer = await _db.RummyPlayers
+                .FirstOrDefaultAsync(x => x.RummyId == gameId
+                                    && x.PlayerId == playerId);
+            _db.Entry(rummyPlayer).State = EntityState.Deleted;
+            await _db.SaveChangesAsync();
+            await RemovePlayer(playerId);
         }
 
-        public async Task<int> StartGame(string playerOne, string playerTwo, string save, int limit)
+        /// <summary>
+        /// Remove a player record from the database
+        /// </summary>
+        /// <param name="playerId"> player id </param>
+        private async Task RemovePlayer(int playerId)
         {
-            ///create and add Rummy object to database
-            await MakeNewGame(save, limit);
+            Player player = await _db.Players.FindAsync(playerId);
+            _db.Entry(player).State = EntityState.Deleted;
+            await _db.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Reset
+        /// </summary>
+        /// <param name="game"></param>
+        /// <returns></returns>
+        public async Task ResetCurrent(Rummy game)
+        {
+            await ClearScoreSheet(game);
+            game.RummyPlayers[0].Player.Wins = 0;
+            game.RummyPlayers[1].Player.Wins = 0;
+            _db.Entry(game).State = EntityState.Modified;
+            await _db.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Starts a fresh score sheet for players
+        /// </summary>
+        /// <param name="playerOne"> string player one </param>
+        /// <param name="playerTwo"> string player two </param>
+        /// <param name="limit"> int game limit </param>
+        /// <returns> int new game id </returns>
+        public async Task<int> StartGame(string playerOne, string playerTwo, int limit, Rummy game)
+        {
+            await MakeNewGame(limit);
             int gameId = GetGameId().Result;
-            ///add players to database
-            ///join players to rummy table
-
+            await CreatePlayer(playerOne);
+            int playerOneId = await GetPlayerId();
+            await CreatePlayer(playerTwo);
+            int playerTwoId = await GetPlayerId();
+            await AssignPlayer(gameId, playerOneId);
+            await AssignPlayer(gameId, playerTwoId);
+            await DeleteGame(game);
             return gameId;
         }
 
-        private async Task MakeNewGame(string save, int limit)
+        /// <summary>
+        /// RummyPlayer join table to put new players into the game object
+        /// </summary>
+        /// <param name="gameId"> game id </param>
+        /// <param name="playerId"> player id </param>
+        private async Task AssignPlayer(int gameId, int playerId)
+        {
+            RummyPlayer player = new RummyPlayer()
+            {
+                PlayerId = playerId,
+                RummyId = gameId
+            };
+            _db.Entry(player).State = EntityState.Added;
+            await _db.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Create a new player object from form input and put into database
+        /// </summary>
+        /// <param name="name"> string player name </param>
+        private async Task CreatePlayer(string name)
+        {
+            Player newPlayer = new Player()
+            {
+                Name = name,
+                Wins = 0
+            };
+            _db.Entry(newPlayer).State = EntityState.Added;
+            await _db.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Get the id of the last player added to the database
+        /// </summary>
+        /// <returns> int Player.Id </returns>
+        private async Task<int> GetPlayerId()
+        {
+            List<Player> games = await _db.Players
+                .Select(x => new Player
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Wins = x.Wins
+                }).ToListAsync();
+            return (games.Last()).Id;
+        }
+
+        /// <summary>
+        /// Create a new game object and add it to database
+        /// </summary>
+        /// <param name="limit"> int limit </param>
+        private async Task MakeNewGame(int limit)
         {
             Rummy game = new Rummy()
             {
-                SaveAs = save,
                 Limit = limit
             };
             _db.Entry(game).State = EntityState.Added;
             await _db.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Get id of last game in the database
+        /// </summary>
+        /// <returns> int Rummy.Id </returns>
         private async Task<int> GetGameId()
         {
             List<Rummy> games = await _db.Rummy
                 .Select(x => new Rummy
                 {
                     Id = x.Id,
-                    SaveAs = x.SaveAs,
                     Limit = x.Limit
                 }).ToListAsync();
             return (games.Last()).Id;
         }
 
-        public void Undo()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<bool> SaveExists(string save)
-        {
-            var saveName = await _db.Rummy
-                .Where(x => x.SaveAs == save)
-                .Select(y => new Rummy
-                {}).FirstOrDefaultAsync();
-            return saveName != null ? true : false;
-        }
-
-
         /// <summary>
         /// Get a game score sheet by id
         /// </summary>
         /// <param name="Id"> Rummy object id </param>
-        public async Task<Rummy> GetGame(int Id)
+        public async Task<Rummy> GetGame(int id)
         {
             return await _db.Rummy
-                .Where(x => x.Id == 1)
+                .Where(x => x.Id == id)
                 .Include(y => y.RummyPlayers)
                 .ThenInclude(a => a.Player)
                 .ThenInclude(b => b.PlayerScores)
@@ -125,12 +216,11 @@ namespace ScoreKeeper.Models.Interfaces.Services
                 .Select(z => new Rummy
                 {
                     Id = z.Id,
-                    SaveAs = z.SaveAs,
+                    Limit = z.Limit,
                     RummyPlayers = z.RummyPlayers
                 }).FirstOrDefaultAsync();
         }
 
-        ///---------------------- Helper methods for adding score -------------------------
         /// <summary>
         /// Controller method to make a series of other method calls
         /// </summary>
@@ -237,7 +327,6 @@ namespace ScoreKeeper.Models.Interfaces.Services
             }
             return gameOver;
         }
-        /// ------------------------ End score adding methods-----------------------
 
         /// <summary>
         /// Driver method that clears the score sheet and removes data from database after each game

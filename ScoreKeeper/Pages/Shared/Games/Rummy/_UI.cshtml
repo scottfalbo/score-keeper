@@ -1,0 +1,22 @@
+﻿@model ScoreKeeper.Pages.Games.RummyModel
+
+
+<section id="rummy-ui">
+    <ul>
+        <li>
+            <form asp-page-handler="New" method="post">
+                <input type="submit" value="new game" />
+            </form>
+        </li>
+        <li>
+            <form asp-page-handler="Reset" method="post">
+                <input type="submit" value="reset" />
+            </form>
+        </li>
+        <li>
+            <a asp-page="/Index">
+                <div>Quit</div>
+            </a>
+        </li>
+    </ul>
+</section>

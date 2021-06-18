@@ -39,14 +39,12 @@ namespace ScoreKeeper.Pages.Games
         public bool NextGame { get; set; }
         [BindProperty]
         public bool HideGameMenu { get; set; }
-        [BindProperty]
-        public bool HideMainMenu { get; set; }
-        public bool SaveExists { get; set; }
 
         public async Task OnGet()
         {
             HideGameMenu = true;
-            Rummy = await _rummy.GetGame(1);
+            int id = EatCookie();
+            Rummy = await _rummy.GetGame(id);
         }
 
         /// <summary>
@@ -55,28 +53,23 @@ namespace ScoreKeeper.Pages.Games
         public async Task OnPostGameOver()
         {
             HideGameMenu = true;
-            HideMainMenu = true;
-            Rummy = await _rummy.GetGame(1);
+            int id = EatCookie();
+            Rummy = await _rummy.GetGame(id);
         }
 
-
-        public async Task OnPostNewGame()
+        /// <summary>
+        /// Start a fresh score sheet with new players and limits
+        /// </summary>
+        public async Task<IActionResult> OnPostNewGame()
         {
             HideGameMenu = true;
-            if (_rummy.SaveExists(GameData.SaveAs).Result == true)
-            {
-                SaveExists = true;
-                Redirect("/");
-            }
-            int gameId = await _rummy.StartGame(GameData.PlayerOne, GameData.PlayerTwo, GameData.SaveAs, GameData.Limit);
-            MakeCookie(gameId);
+            int id = EatCookie();
+            Rummy = await _rummy.GetGame(id);
 
-            Redirect("/");
-        }
+            id = await _rummy.StartGame(GameData.PlayerOne, GameData.PlayerTwo, GameData.Limit, Rummy);
+            MakeCookie(id);
 
-        public async Task OnPostLoadSaved()
-        {
-            //_rummy.ContinueGame()
+            return Redirect("/Games/Rummy");
         }
 
         /// <summary>
@@ -84,7 +77,6 @@ namespace ScoreKeeper.Pages.Games
         /// </summary>
         public void OnPostNewGameMenu()
         {
-            HideMainMenu = true;
             HideGameMenu = false;
         }
 
@@ -93,14 +85,34 @@ namespace ScoreKeeper.Pages.Games
         /// </summary>
         public async Task OnPostAddScore()
         {
-            GameOver = await _rummy.AddScores(ScoreInput.PlayerOne, ScoreInput.PlayerTwo);
+            GameOver = await _rummy.AddScores(ScoreInput.PlayerOne, ScoreInput.PlayerTwo, Rummy.Id);
             NextGame = GameOver.GameOver;
-            Rummy = await _rummy.GetGame(1);
+            int id = EatCookie();
+            Rummy = await _rummy.GetGame(id);
             ScoreInput.PlayerOne = 0;
             ScoreInput.PlayerTwo = 0;
             HideGameMenu = true;
-            HideMainMenu = true;
-            Redirect("/");
+            Redirect("/Games/Rummy");
+        }
+
+        /// <summary>
+        /// Toggles the new game interface on
+        /// </summary>
+        public void OnPostNew()
+        {
+            HideGameMenu = false;
+        }
+
+        /// <summary>
+        /// Reset the current win trackers and score sheet
+        /// </summary>
+        public async Task<IActionResult> OnPostReset()
+        {
+            int id = EatCookie();
+            Rummy = await _rummy.GetGame(id);
+            await _rummy.ResetCurrent(Rummy);
+
+            return Redirect("/Games/Rummy");
         }
 
         /// <summary>
@@ -117,6 +129,17 @@ namespace ScoreKeeper.Pages.Games
             };
             HttpContext.Response.Cookies.Append("game id", id.ToString(), cookieOptions);
         }
+
+        /// <summary>
+        /// Helper method to get the users game id from a cookie
+        /// </summary>
+        /// <returns> int game id </returns>
+        private int EatCookie()
+        {
+            string gameId = HttpContext.Request.Cookies["game id"];
+            int id = gameId != null ? Int32.Parse(gameId) : -1;
+            return id;
+        }
     }
 
     /// <summary>
@@ -126,7 +149,6 @@ namespace ScoreKeeper.Pages.Games
     {
         public string PlayerOne { get; set; }
         public string PlayerTwo { get; set; }
-        public string SaveAs { get; set; }
         public int Limit { get; set; }
     }
 

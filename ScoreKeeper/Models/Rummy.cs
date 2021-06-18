@@ -8,7 +8,6 @@ namespace ScoreKeeper.Models
     public class Rummy
     {
         public int Id { get; set; }
-        public string  SaveAs { get; set; }
         public int Limit { get; set; }
         public List<RummyPlayer> RummyPlayers { get; set; }
     }

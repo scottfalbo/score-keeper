@@ -1,16 +1,7 @@
 ﻿'use strict';
 
-
-//function scrollToBottom() {
-//    var element = document.getElementById("scroll-me-dev");
-//    element.scrollTop = element.scrollHeight;
-//}
-
-const theElement = document.getElementById('dev');
-
-const scrollToBottom = (node) => {
-	node.scrollTop = node.scrollHeight;
-}
-
-scrollToBottom(theElement);
+//clear the input forms after each round
+$(document).ready(function () {
+    $("input[type=text]").val("");
+});
 
