@@ -5,13 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ScoreKeeper</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Delius+Unicase&family=Patrick+Hand+SC&family=The+Girl+Next+Door&family=Walter+Turncoat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-4">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">ScoreKeeper</a>
+                <a class="navbar-brand" asp-area="" asp-page="/Index"><h1>ScoreKeeper</h1></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -19,16 +23,13 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a asp-area="" asp-page="/Games/Rummy">Rummy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Games/Rummy">Rummy</a>
+                            <a asp-area="" asp-page="/Instructions">Instructions</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Instructions">Instructions</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/About">About</a>
+                            <a asp-area="" asp-page="/About">About</a>
                         </li>
                     </ul>
                 </div>
@@ -45,10 +46,10 @@
         <div class="container">
             <ul>
                 <li>
-                    <a asp-area="" asp-page="/Instructions">Instructions</a>
+                    <a asp-area="" asp-page="/About">About</a>
                 </li>
                 <li>
-                    <a asp-area="" asp-page="/About">About</a>
+                    <a asp-area="" asp-page="/Instructions">Instructions</a>
                 </li>
             </ul>
         </div>

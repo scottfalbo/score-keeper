@@ -1,23 +1,31 @@
 ﻿/* ------------------ Homepage*/
 
+
 #main-page-menu > div:first-child {
     width: 90%;
     margin: 40px auto;
 }
 
-    #main-page-menu > ul {
-        margin: auto;
+#main-page-menu > ul {
+    width: 95%;
+    margin: auto;
+}
+
+    #main-page-menu > ul > li {
+        width: 70%;
+        margin: 25px auto;
     }
 
-        #main-page-menu > ul > li {
-            width: 70%;
-            margin: 25px auto;
-        }
+    #main-page-menu .link-button {
+        width: 100%;
+        margin: auto;
+    }
 
 /* ------------------ Footer */
 
 footer {
     max-width: 540px;
+    height: 60px;
 }
 
 footer ul {
@@ -27,9 +35,9 @@ footer ul {
 
     footer ul > li {
         display: inline-block;
-        width: 50%;
         margin: auto;
         text-align: center;
+        float: right;
     }
 
 /* ---------------- Instructions */
@@ -75,7 +83,7 @@ footer ul {
 #rummy-score-keeper {
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 100px 3fr 80px 100px;
+    grid-template-rows: 100px 1fr 80px;
 }
 
     #player-names {
@@ -172,8 +180,11 @@ footer ul {
             }
 
         #rummy-ui {
-            grid-column: 1/2;
-            grid-row: 4/5;
+            position: fixed;
+            bottom: 60px;
+            left: 0px;
+            right: 0;
+            z-index: 100;
         }
 
             #rummy-ui ul {

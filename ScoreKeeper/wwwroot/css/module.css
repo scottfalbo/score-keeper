@@ -1,8 +1,94 @@
-﻿.menu-block-out {
+﻿/* -------------------- Header*/
+
+header {
+    background: none;
+}
+
+    header h1 {
+        font-family: 'Patrick Hand SC', cursive;
+        font-size: 1.5em;
+        background-color: rgb(255 255 255 / 0.60);
+        padding: 5px 15px;
+        border-radius: 5px;
+        box-shadow: 0px 3px 3px #141414;
+    }
+
+    header button {
+        box-shadow: 0px 3px 3px #141414;
+    }
+
+    header ul {
+        width: 40%;
+        float: right;
+        text-align: center;
+    }
+
+        header ul li {
+            background-color: rgb(255 255 255 / 0.60);
+            border-radius: 5px;
+            box-shadow: 0px 3px 3px #141414;
+            margin: 10px 0px;
+            height: 40px;
+            font-size: 1.3em;
+            padding: 10px;
+            font-family: 'Patrick Hand SC', cursive;
+        }
+
+            header ul li a {
+                color: #05125a;
+            }
+
+/* ------------------ Homepage */
+
+#main-page-menu p {
+    text-align: center;
+    font-size: 1.4em;
+    padding: 10px;
+}
+
+/* ------------------ Footer */
+
+footer ul > li > a {
+    padding: 5px 10px;
+    background-color: rgb(255 255 255 / 0.50);
+    border-radius: 5px;
+    box-shadow: 0px 3px 3px #141414;
+    margin-left: 10px;
+}
+
+
+
+/* -----------------Shared */
+
+.link-button {
+    width: 300px;
+    height: 50px;
+    background-color: rgb(255 255 255 / 0.60);
+    border-radius: 5px;
+    box-shadow: 0px 3px 3px #141414;
+    text-align: center;
+    font-size: 1.4em;
+    padding: 10px;
+}
+
+
+/*
+font-family: 'Patrick Hand SC', cursive;
+font-family: 'The Girl Next Door', cursive;
+font-family: 'Delius Unicase', cursive;
+font-family: 'Walter Turncoat', cursive;
+*/
+
+
+
+
+
+
+.menu-block-out {
     background-color: rgb(255 255 255 / 0.70);
 }
 
-.menu-block-out > div {
-    background-image: url("../images/paper-backer.jpg");
-    background-size: cover;
-}
+    .menu-block-out > div {
+        background-image: url("../images/paper-backer.jpg");
+        background-size: cover;
+    }
