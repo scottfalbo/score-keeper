@@ -43,8 +43,7 @@ namespace ScoreKeeper.Pages.Games
         public async Task OnGet()
         {
             HideGameMenu = true;
-            string gameId = HttpContext.Request.Cookies["game id"];
-            int id = gameId != null ? Int32.Parse(gameId) : -1;
+            int id = EatCookie();
             Rummy = await _rummy.GetGame(id);
         }
 
@@ -54,8 +53,7 @@ namespace ScoreKeeper.Pages.Games
         public async Task OnPostGameOver()
         {
             HideGameMenu = true;
-            string gameId = HttpContext.Request.Cookies["game id"];
-            int id = gameId != null ? Int32.Parse(gameId) : -1;
+            int id = EatCookie();
             Rummy = await _rummy.GetGame(id);
         }
 
@@ -65,8 +63,7 @@ namespace ScoreKeeper.Pages.Games
         public async Task<IActionResult> OnPostNewGame()
         {
             HideGameMenu = true;
-            string gameId = HttpContext.Request.Cookies["game id"];
-            int id = gameId != null ? Int32.Parse(gameId) : -1;
+            int id = EatCookie();
             Rummy = await _rummy.GetGame(id);
 
             id = await _rummy.StartGame(GameData.PlayerOne, GameData.PlayerTwo, GameData.Limit, Rummy);
@@ -90,8 +87,7 @@ namespace ScoreKeeper.Pages.Games
         {
             GameOver = await _rummy.AddScores(ScoreInput.PlayerOne, ScoreInput.PlayerTwo, Rummy.Id);
             NextGame = GameOver.GameOver;
-            string gameId = HttpContext.Request.Cookies["game id"];
-            int id = gameId != null ? Int32.Parse(gameId) : -1;
+            int id = EatCookie();
             Rummy = await _rummy.GetGame(id);
             ScoreInput.PlayerOne = 0;
             ScoreInput.PlayerTwo = 0;
@@ -112,8 +108,7 @@ namespace ScoreKeeper.Pages.Games
         /// </summary>
         public async Task<IActionResult> OnPostReset()
         {
-            string gameId = HttpContext.Request.Cookies["game id"];
-            int id = gameId != null ? Int32.Parse(gameId) : -1;
+            int id = EatCookie();
             Rummy = await _rummy.GetGame(id);
             await _rummy.ResetCurrent(Rummy);
 
@@ -133,6 +128,17 @@ namespace ScoreKeeper.Pages.Games
                 HttpOnly = true
             };
             HttpContext.Response.Cookies.Append("game id", id.ToString(), cookieOptions);
+        }
+
+        /// <summary>
+        /// Helper method to get the users game id from a cookie
+        /// </summary>
+        /// <returns> int game id </returns>
+        private int EatCookie()
+        {
+            string gameId = HttpContext.Request.Cookies["game id"];
+            int id = gameId != null ? Int32.Parse(gameId) : -1;
+            return id;
         }
     }
 
