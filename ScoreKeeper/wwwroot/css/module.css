@@ -62,6 +62,36 @@ footer ul > li > a {
 }
 
 
+/*----------------------About */
+
+#about-me figure {
+
+}
+
+    #about-me figure img {
+        width: 150px;
+        border-radius: 75px;
+        border: 2px solid #000;
+    }
+
+    #about-me figure figcaption {
+        font-size: 1.6em;
+    }
+
+#about-me article {
+    background-color: rgb(255 255 255 / 0.70);
+    padding: 5px;
+}
+
+#contact {
+    text-align: center;
+}
+
+#about-me div:last-child {
+    width: 200px;
+    height: 40px;
+    line-height: 20px;
+}
 
 /* ------------------- Rummy Score*/
 

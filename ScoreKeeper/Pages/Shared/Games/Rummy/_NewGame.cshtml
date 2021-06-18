@@ -6,14 +6,14 @@
         <p>enter your names:</p>
         <form asp-page-handler="NewGame" method="post">
             <div>
-                <input type="text" asp-for="GameData.PlayerOne" placeholder="player one" required />
+                <input type="text" asp-for="GameData.PlayerOne" placeholder="player one" required maxlength="10"  />
             </div>
             <div>
-                <input type="text" asp-for="GameData.PlayerTwo" placeholder="player two" required />
+                <input type="text" asp-for="GameData.PlayerTwo" placeholder="player two" required maxlength="10" />
             </div>
             <p>enter score to play up to:</p>
             <div>
-                <input type="text" asp-for="GameData.Limit" placeholder="play to" required />
+                <input type="number" asp-for="GameData.Limit" placeholder="play to" required />
             </div>
             <div>
                 <input class="link-button" type="submit" value="start game" />
