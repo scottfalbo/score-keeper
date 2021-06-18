@@ -83,7 +83,7 @@ footer ul {
 #rummy-score-keeper {
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 100px 1fr 80px;
+    grid-template-rows: 100px 1fr 60px 70px;
 }
 
     #player-names {
@@ -98,7 +98,7 @@ footer ul {
             grid-column: 1/2;
             grid-row: 1/2;
             display: grid;
-            grid-template-columns: 80% 20%;
+            grid-template-columns: 50% 50%;
             grid-template-rows: 100%;
         }
 
@@ -156,7 +156,7 @@ footer ul {
 
         #rummy-score-input > form {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 40% 40% 20%;
             grid-template-rows: 100%;
         }
 
@@ -180,20 +180,18 @@ footer ul {
             }
 
         #rummy-ui {
-            position: fixed;
-            bottom: 60px;
-            left: 0px;
-            right: 0;
-            z-index: 100;
+            grid-column: 1/2;
+            grid-row: 4/5;
         }
 
             #rummy-ui ul {
                 width: 80%;
                 margin: 20px auto;
+                display: flex;
+
             }
 
                 #rummy-ui ul li {
-                    width: 30%;
                     margin: auto;
                     display: inline-block;
                 }

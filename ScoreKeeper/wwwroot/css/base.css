@@ -7,6 +7,10 @@ html {
     min-height: 100%;
 }
 
+a {
+    color: inherit;
+} 
+
 body {
     /* Margin bottom by footer height */
     margin: auto;
@@ -17,7 +21,7 @@ body {
     background-position: center;
     font-family: 'Patrick Hand SC', cursive;
     font-size: 1.2em;
-    min-width: 340px;
+    min-width: 380px;
 }
 
 @media (min-width: 576px) {

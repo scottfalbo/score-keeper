@@ -5,18 +5,20 @@
     <ul>
         <li>
             <form asp-page-handler="New" method="post">
-                <input type="submit" value="new game" />
+                <input type="submit" value="new game" class="link-button"/>
             </form>
         </li>
         <li>
             <form asp-page-handler="Reset" method="post">
-                <input type="submit" value="reset" />
+                <input type="submit" value="reset" class="link-button"/>
             </form>
         </li>
         <li>
-            <a asp-page="/Index">
-                <div>Quit</div>
-            </a>
+            <div class="link-button">
+                <a asp-page="/Index">
+                    <div>quit</div>
+                </a>
+            </div>
         </li>
     </ul>
 </section>
