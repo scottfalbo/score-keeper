@@ -115,6 +115,9 @@ namespace ScoreKeeper.Pages.Games
             return Redirect("/Games/Rummy");
         }
 
+        /// <summary>
+        /// Cancel button to leave the new game window and return to current game
+        /// </summary>
         public void OnPostCancel()
         {
             HideGameMenu = true;
