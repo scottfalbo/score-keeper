@@ -3,7 +3,7 @@
 <section id="rummy-new-game" class="menu-block-out">
     <div>
         <h2>New Game</h2>
-        <p>enter your name</p>
+        <p>enter your names:</p>
         <form asp-page-handler="NewGame" method="post">
             <div>
                 <input type="text" asp-for="GameData.PlayerOne" placeholder="player one" required />
@@ -11,16 +11,17 @@
             <div>
                 <input type="text" asp-for="GameData.PlayerTwo" placeholder="player two" required />
             </div>
+            <p>enter score to play up to:</p>
             <div>
                 <input type="text" asp-for="GameData.Limit" placeholder="play to" required />
             </div>
             <div>
-                <input type="submit" value="start game" />
+                <input class="link-button" type="submit" value="start game" />
             </div>
         </form>
         <div>
             <form asp-page-handler="Cancel" method="post">
-                <input type="submit" value="cancel" />
+                <input class="link-button" type="submit" value="cancel" />
             </form>
         </div>
     </div>

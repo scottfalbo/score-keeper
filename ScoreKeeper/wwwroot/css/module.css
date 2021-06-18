@@ -73,9 +73,8 @@ footer ul > li > a {
 }
 
     #player-names div:first-child h2 {
-        font-family: 'Delius Unicase', cursive;
-        font-size: 1.7em;
-        color: #121f6c;
+        font-family: 'Fredericka the Great', cursive;
+        font-size: 2em;
     }
 
     #player-names div:first-child p {
@@ -141,6 +140,68 @@ footer ul > li > a {
             width: 100%;
         }
 
+/* -------------------New Game Menu*/
+
+#rummy-new-game {
+    text-align: center;
+}
+
+#rummy-new-game p {
+    font-size: 1.2em;
+}
+
+#rummy-new-game > div h2 {
+    font-family: 'Fredericka the Great', cursive;
+    font-size: 2em;
+}
+
+#rummy-new-game input {
+    height: 40px;
+}
+
+#rummy-new-game .link-button {
+    line-height: 20px;
+}
+
+/* ------------------- Game Over Menu*/
+
+#rummy-game-over > div h2 {
+    font-family: 'Fredericka the Great', cursive;
+    font-size: 2em;
+    width: 95%;
+    text-align: center;
+}
+
+#rummy-game-over > div table {
+    text-align: center;
+    font-size: 1.2em;
+}
+
+td { 
+    padding: 5px;
+}
+
+#rummy-game-over > div div:nth-child(3) {
+    text-align: center;
+    font-size: 1.3em;
+}
+
+#rummy-game-over > div div:nth-child(3) p:last-child {
+    text-align: center;
+    font-size: 2em;
+    font-family: 'The Girl Next Door', cursive;
+    color: #051eae;
+}
+
+#rummy-game-over > div div:last-child {
+    width: 200px;
+    line-height: 20px;
+}
+
+#rummy-game-over .link-button {
+    height: 40px;
+}
+
 /* -----------------Shared */
 
 .link-button {
@@ -154,19 +215,6 @@ footer ul > li > a {
     color: #051eae;
 }
 
-
-/*
-font-family: 'Patrick Hand SC', cursive;
-font-family: 'The Girl Next Door', cursive;
-font-family: 'Delius Unicase', cursive;
-font-family: 'Walter Turncoat', cursive;
-*/
-
-
-
-
-
-
 .menu-block-out {
     background-color: rgb(255 255 255 / 0.70);
 }
@@ -174,4 +222,14 @@ font-family: 'Walter Turncoat', cursive;
     .menu-block-out > div {
         background-image: url("../images/paper-backer.jpg");
         background-size: cover;
+        box-shadow: 0px 2px 3px #141414;
+        padding: 5px;
     }
+
+/*
+font-family: 'Patrick Hand SC', cursive;
+font-family: 'The Girl Next Door', cursive;
+font-family: 'Delius Unicase', cursive;
+font-family: 'Walter Turncoat', cursive;
+font-family: 'Fredericka the Great', cursive;
+*/
