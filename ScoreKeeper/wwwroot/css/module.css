@@ -1,1 +1,8 @@
-﻿
+﻿.menu-block-out {
+    background-color: rgb(255 255 255 / 0.70);
+}
+
+#rummy-new-game > div {
+    background-image: url("../images/paper-backer.jpg");
+    background-size: cover;
+}

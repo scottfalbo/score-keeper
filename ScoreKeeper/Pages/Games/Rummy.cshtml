@@ -3,7 +3,7 @@
 @{
 }
 
-<section id="rummy-score" class="section-container">
+<section id="rummy-score-keeper" class="section-container">
     @await Component.InvokeAsync("PlayerNames")
 @await Component.InvokeAsync("RummyScore")
 
@@ -25,10 +25,10 @@
 <partial name="Games/Rummy/_UI" />
 </section>
 
-@if (!Model.HideGameMenu)
-{
+@*@if (!Model.HideGameMenu)
+{*@
     <partial name="Games/Rummy/_NewGame" />
-}
+@*}*@
 
 @if (Model.GameOver.GameOver)
 {

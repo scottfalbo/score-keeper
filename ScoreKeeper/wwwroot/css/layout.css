@@ -68,7 +68,7 @@ footer ul {
 
 /* ------------------- Rummy Score*/
 
-#rummy-score {
+#rummy-score-keeper {
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: 100px 3fr 80px 100px;
@@ -183,9 +183,50 @@ footer ul {
                     display: inline-block;
                 }
 
+/* -------------------New Game Menu*/
+
+#rummy-new-game > div {
+    width: 80%;
+    height: 80%;
+    margin: 10% auto;
+}
+
+    #rummy-new-game > div  h2 {
+        width: 60%;
+        margin: 30px auto;
+    }
+
+    #rummy-new-game > div p {
+        width: 80%;
+        margin: 20px auto;
+    }
+
+    #rummy-new-game > div > form {
+        width: 70%;
+        margin: 40px auto;
+    }
+
+        #rummy-new-game > div > form div {
+            margin: 30px auto;
+        }
+
+    #rummy-new-game > div > div:last-child {
+        width: 60%;
+        margin: 20px auto;
+    }
+
 /* -------------------- Shared */
 
 .section-container {
     width: 90%;
     margin: auto;
+}
+
+.menu-block-out {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0;
+    height: 100%;
+    z-index: 100;
 }
