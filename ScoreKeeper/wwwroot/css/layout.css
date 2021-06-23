@@ -116,18 +116,32 @@ footer ul {
             grid-column: 1/2;
             grid-row: 2/3;
             display: grid;
-            grid-template-columns: 50% 50%;
+            grid-template-columns: 1fr 40px 1fr 40px;
             grid-template-rows: 100%;
         }
 
             #player-names div:last-child p:first-child {
                 grid-column: 1/2;
                 grid-row: 1/2;
+                width: 100%;
             }
 
-            #player-names div:last-child p:last-child {
+            #player-names div:last-child p:nth-child(3) {
+                grid-column: 3/4;
+                grid-row: 1/2;
+                width: 100%;
+            }
+
+            #player-names div:last-child span:nth-child(2) {
                 grid-column: 2/3;
                 grid-row: 1/2;
+                width: 100%;
+            }
+
+            #player-names div:last-child span:nth-child(4) {
+                grid-column: 4/5;
+                grid-row: 1/2;
+                width: 100%;
             }
 
     #rummy-score-sheet {

@@ -89,16 +89,14 @@ footer ul > li > a {
         font-size: 1.5em;
     }
 
-        #player-names div:last-child p > span {
+        #player-names div:last-child span {
             padding-top: 5px;
             text-align: center;
-            float: right;
-            margin-right: 40px;
             box-shadow: 0px 3px 3px #141414;
             height: 35px;
-            width: 45px;
             border-radius: 18px;
             color: #051eae;
+            margin: -5px -15px;
         }
 
 #rummy-score-sheet div p {
