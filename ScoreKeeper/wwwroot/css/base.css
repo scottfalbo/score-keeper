@@ -5,6 +5,9 @@
 html {
     position: relative;
     min-height: 100%;
+    background-image: url("../images/paper-backer.jpg");
+    background-size: cover;
+
 }
 
 a {
@@ -15,13 +18,11 @@ body {
     /* Margin bottom by footer height */
     margin: auto;
     margin-bottom: 60px;
-    background-image: url("../images/paper-backer.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    background: none;
+
     font-family: 'Patrick Hand SC', cursive;
     font-size: 1.2em;
-    min-width: 380px;
+    min-width: 450px;
 }
 
 @media (min-width: 576px) {
