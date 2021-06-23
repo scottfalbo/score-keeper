@@ -38,3 +38,4 @@ A simple web application to keep track of scores for various card and board game
     + Finished full CRUD actions for all tables, including score sheet creation and deletion.
     + Scaffolded out the HTML markup for the page layouts.
     + Finished site wide layout CSS.
+    + 
