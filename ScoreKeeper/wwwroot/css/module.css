@@ -61,22 +61,45 @@ footer ul > li > a {
     margin-left: 10px;
 }
 
+/* --------------------- Instructions*/
+
+#instruction-manual h2 {
+    text-align: center;
+    font-size: 1.5em;
+    margin: 0px auto 10px auto;
+}
+
+#instruction-manual div h3 {
+    text-align: center;
+    padding: 5px;
+}
+
+#instruction-manual div:last-child ul {
+    list-style-type: circle;
+    margin-left: 30px;
+}
+
+#instruction-manual div:last-child ul li {
+    margin: 10px 0px;
+}
+
+    #instruction-manual div:last-child ul li span {
+        font-size: 1.2em;
+        font-weight: 200;
+        color: #051eae;
+    }
 
 /*----------------------About */
 
-#about-me figure {
-
+#about-me figure img {
+    width: 150px;
+    border-radius: 75px;
+    border: 2px solid #000;
 }
 
-    #about-me figure img {
-        width: 150px;
-        border-radius: 75px;
-        border: 2px solid #000;
-    }
-
-    #about-me figure figcaption {
-        font-size: 1.6em;
-    }
+#about-me figure figcaption {
+    font-size: 1.6em;
+}
 
 #about-me article {
     background-color: rgb(255 255 255 / 0.70);
