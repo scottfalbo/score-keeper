@@ -35,13 +35,13 @@ namespace ScoreKeeper.Data
                 new Player
                 {
                     Id = -1,
-                    Name = "Player 1",
+                    Name = "New Player",
                     Wins = 0
                 },
                 new Player
                 {
                     Id = -2,
-                    Name = "Player 2",
+                    Name = "New Player",
                     Wins = 0
                 }
                 );

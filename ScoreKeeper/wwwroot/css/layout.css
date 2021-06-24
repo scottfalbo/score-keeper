@@ -94,6 +94,7 @@ footer ul {
 #about-me div:last-child {
     width: 70%;
     margin: 20px auto;
+}
 
 /* ------------------- Rummy Score*/
 
@@ -137,25 +138,25 @@ footer ul {
             grid-template-rows: 100%;
         }
 
-            #player-names div:last-child p:first-child {
+            #player-names div:last-child > p:nth-child(1) {
                 grid-column: 1/2;
                 grid-row: 1/2;
                 width: 100%;
             }
 
-            #player-names div:last-child p:nth-child(3) {
-                grid-column: 3/4;
-                grid-row: 1/2;
-                width: 100%;
-            }
-
-            #player-names div:last-child span:nth-child(2) {
+            #player-names div:last-child > p:nth-child(2) {
                 grid-column: 2/3;
                 grid-row: 1/2;
                 width: 100%;
             }
 
-            #player-names div:last-child span:nth-child(4) {
+            #player-names div:last-child > p:nth-child(3) {
+                grid-column: 3/4;
+                grid-row: 1/2;
+                width: 100%;
+            }
+
+            #player-names div:last-child > p:nth-child(4) {
                 grid-column: 4/5;
                 grid-row: 1/2;
                 width: 100%;

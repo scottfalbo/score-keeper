@@ -44,6 +44,7 @@ namespace ScoreKeeper.Pages.Games
         {
             HideGameMenu = true;
             int id = EatCookie();
+            if (id == -1) { HideGameMenu = false; }
             Rummy = await _rummy.GetGame(id);
         }
 
