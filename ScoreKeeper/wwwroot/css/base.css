@@ -17,18 +17,16 @@ body {
     margin: auto;
     margin-bottom: 60px;
     background: none;
-
     font-family: 'Patrick Hand SC', cursive;
     font-size: 1.2em;
-    min-width: 450px;
     max-width: 500px;
 }
 
-@media (min-width: 576px) {
+/*@media (min-width: 576px) {
     body {
         width: 576px;
     }
-}
+}*/
 
 .footer {
     position: absolute;
