@@ -230,7 +230,7 @@ footer ul {
 /* -------------------New Game Menu*/
 
 #rummy-new-game > div  h2 {
-    width: 60%;
+    width: 80%;
     margin: 30px auto;
 }
 
@@ -240,7 +240,7 @@ footer ul {
 }
 
 #rummy-new-game > div > form {
-    width: 70%;
+    width: 90%;
     margin: 40px auto;
 }
 
@@ -303,6 +303,6 @@ footer ul {
 
 .menu-block-out > div {
     width: 80%;
-    height: 80%;
+    height: fit-content();
     margin: 10% auto;
 }
