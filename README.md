@@ -49,7 +49,7 @@ This is a .Net Core app written in C# using Visual Studio.  It is deployed on Az
 
 ## Architecture
 
-
+![ERD](assets/ERD.jpg)
 
 ---
 
