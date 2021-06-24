@@ -4,13 +4,47 @@
 }
 
 <section id="instruction-manual" class="section-container">
-    <section>
-        how to use, will do when I have screen shots
-    </section>
-    <div>
+    <h2>Instruction Manual</h2>
+    <article>
+        <div>
+            <h3>New Game</h3>
+            <img src="~/images/new-game.png" alt="screenshot of new game menu" />
+            <h3>Score Sheet</h3>
+            <img src="~/images/rummy.png" alt="screenshot of score sheet" />
+        </div>
+        <div>
+            <ul>
+                <li>
+                    <span>New Game Menu</span>
+                </li>
+                <li>
+                    Enter your names.
+                </li>
+                <li>
+                    Enter the score you wish to play up to.
+                </li>
+                <li>
+                    Start the Game.
+                </li>
+                <li>
+                    <span>Score Sheet</span>
+                </li>
+                <li>
+                    Enter each round's scores into the input fields and press the + button.
+                </li>
+                <li>
+                    Your cumulative score will be displayed with each added round until a player reaches the score limit.
+                </li>
+                <li>
+                    The winning players counter will go up and you'll be prompted to restart.
+                </li>
+            </ul>
+        </div>
+    </article>
+    <div class="link-button">
         <a asp-page="/Index">Home</a>
     </div>
-    <div>
+    <div class="link-button">
         <a asp-page="/Games/Rummy">Play</a>
     </div>
 </section>

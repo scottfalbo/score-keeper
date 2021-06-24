@@ -12,6 +12,7 @@ namespace ScoreKeeper.Models.Interfaces
         public Task<Winner> AddScores(int scoreOne, int scoreTwo, int gameId);
         public Task DeleteGame(Rummy game);
         public Task<Rummy> GetGame(int id);
+        public Task<List<Rummy>> GetGames();
         public Task ClearScoreSheet(Rummy game);
         public Task ResetCurrent(Rummy game);
     }

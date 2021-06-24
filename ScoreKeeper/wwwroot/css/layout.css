@@ -37,19 +37,59 @@ footer ul {
         display: inline-block;
         margin: auto;
         text-align: center;
-        float: right;
     }
+
+    footer ul > li:last-child {
+        float: right;
+    } 
 
 /* ---------------- Instructions */
 
-#instruction-manual > section {
-    width: 90%;
-    margin: 40px auto;
+#instruction-manual > article {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 1fr;
+    margin-bottom: 10px;
 }
 
+    #instruction-manual div:first-child {
+        grid-column: 1/2;
+        grid-row: 1/2;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 30px 1fr 30px .6fr;
+    }
+
+        #instruction-manual div:first-child h3:nth-child(1) {
+            grid-column: 1/2;
+            grid-row: 1/2;
+        }
+
+        #instruction-manual div:first-child img:nth-child(2) {
+            grid-column: 1/2;
+            grid-row: 2/3;
+            width: 100%;
+        }
+
+        #instruction-manual div:first-child h3:nth-child(3) {
+            grid-column: 1/2;
+            grid-row: 3/4;
+        }
+
+        #instruction-manual div:first-child img:nth-child(4) {
+            grid-column: 1/2;
+            grid-row: 4/5;
+            width: 100%;
+        }
+
+    #instruction-manual div:last-child {
+        grid-column: 2/3;
+        grid-row: 1/2;
+    }
+
 #instruction-manual > div {
-    width: 70%;
-    margin: 25px auto;
+    width: 200px;
+    margin: 10px auto;
 }
 
 /*----------------------About */
@@ -64,14 +104,32 @@ footer ul {
         margin: 10px auto;
     }
 
-    #about-me figure figcaption {
-        margin: 10px auto;
-    }
-
 #contact {
     width: 90%;
     margin: 20px auto;
 }
+
+    #contact ul:first-child {
+        width: 90%;
+        margin: 10px auto;
+    }
+
+        #contact ul:first-child li {
+            margin: 5px;
+        }
+
+    #contact ul:last-child {
+        width: 90%;
+        margin: 10px auto;
+    }
+
+            #contact ul:last-child li {
+                display: inline-block;
+            }
+
+                #contact img {
+                    width: 50px;
+                }
 
 #about-me div:last-child {
     width: 70%;
@@ -116,18 +174,32 @@ footer ul {
             grid-column: 1/2;
             grid-row: 2/3;
             display: grid;
-            grid-template-columns: 50% 50%;
+            grid-template-columns: 1fr 40px 1fr 40px;
             grid-template-rows: 100%;
         }
 
-            #player-names div:last-child p:first-child {
+            #player-names div:last-child > p:nth-child(1) {
                 grid-column: 1/2;
                 grid-row: 1/2;
+                width: 100%;
             }
 
-            #player-names div:last-child p:last-child {
+            #player-names div:last-child > p:nth-child(2) {
                 grid-column: 2/3;
                 grid-row: 1/2;
+                width: 100%;
+            }
+
+            #player-names div:last-child > p:nth-child(3) {
+                grid-column: 3/4;
+                grid-row: 1/2;
+                width: 100%;
+            }
+
+            #player-names div:last-child > p:nth-child(4) {
+                grid-column: 4/5;
+                grid-row: 1/2;
+                width: 100%;
             }
 
     #rummy-score-sheet {
@@ -199,7 +271,7 @@ footer ul {
 /* -------------------New Game Menu*/
 
 #rummy-new-game > div  h2 {
-    width: 60%;
+    width: 80%;
     margin: 30px auto;
 }
 
@@ -209,7 +281,7 @@ footer ul {
 }
 
 #rummy-new-game > div > form {
-    width: 70%;
+    width: 90%;
     margin: 40px auto;
 }
 
@@ -272,6 +344,6 @@ footer ul {
 
 .menu-block-out > div {
     width: 80%;
-    height: 80%;
+    height: fit-content();
     margin: 10% auto;
 }

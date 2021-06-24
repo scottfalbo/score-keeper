@@ -1,40 +1,67 @@
 # Score Keeper
 
-A simple web application to keep track of scores for various card and board games.
+version: 1.0.0
+
+---
+
+## Deployed on Azure
+
+[falboscorekeeper.azurewebsites.net](https://falboscorekeeper.azurewebsites.net/)
+
+---
+
+## Summary
+
+I wrote this app because my partner and I play Rummy all of the time and there isn't always a sheet of paper around to keep score.  This not only solves that problem but also keeps track of each player's overall wins.
+
+---
+
+## Usage
+
++ [ScoreKeeper](https://falboscorekeeper.azurewebsites.net/)
++ **New Game Menu**
+  + Enter your names.
+  + Enter the score you wish to play up to.
+  + Start the Game.
++ **Score Sheet**
+  + Enter each round's scores into the input fields and press the + button.
+  + Your cumulative score will be displayed with each added round until a player reaches the score limit.
+  + The winning players counter will go up and you'll be prompted to restart.
+
+---
+
+## App Overview
+
+This is a .Net Core app written in C# using Visual Studio.  It is deployed on Azure and implements an AzureSQL Database.
 
 ## Technologies
 
 + C#
 + ASP.NET
 + Razor Pages
-+ Razor Components
++ Razor ViewComponents
 + Azure
++ AzureSQL Database
 + Visual Studio
 + GitHub
 
-## Development Log
+---
 
-+ 06/15/2021
-  + Scaffolded out app pages.
-  + Created models, interface, service repository, and transient for the rummy score keeper.
-  + Created, seeded and migrated the database.
-  + Made a view component for the rummy score sheet.
-  + Installed the following packages:
-    + `Microsoft.AspNetCore.Mvc.NewtonsoftJson`
-    + `Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation`
-    + `Microsoft.EntityFrameworkCore`
-    + `Microsoft.EntityFrameworkCore.SqlServer`
-    + `Microsoft.EntityFrameworkCore.Tools`
-    + `Newtonsoft.Json`
-    + `System.Configuration.ConfigurationManager`
-  + 06/16/2021
-    + Moved player names and wins to view component.
-    + Built out methods to add scores to the database and to the `PlayerScore List`
-    + Wrote logic to add the scores as they are submitted updating the view.  Game resets when a player reaches goal.
-    + Added properties and logic to hide and show menu windows at the appropriate times.
-    + Made a tracking cookie to keep track of the current users game id.
-  + 06/17/2021
-    + Stripped some menus and options away to make things feel less clunky.  
-    + Finished full CRUD actions for all tables, including score sheet creation and deletion.
-    + Scaffolded out the HTML markup for the page layouts.
-    + Finished site wide layout CSS.
+## Architecture
+
+![ERD](assets/ERD.jpg)
+
+---
+
+## Change Log
+
++ 06/23/2021
+  + Initial deployment version 1.0.0
+
++ ### [Development Log](development.md)
+
+---  
+
+## Author
+
++ Scott Falbo

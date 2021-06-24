@@ -5,6 +5,8 @@
 html {
     position: relative;
     min-height: 100%;
+    background-image: url("../images/paper-backer.jpg");
+    background-size: cover;
 }
 
 a {
@@ -12,28 +14,24 @@ a {
 } 
 
 body {
-    /* Margin bottom by footer height */
     margin: auto;
     margin-bottom: 60px;
-    background-image: url("../images/paper-backer.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    background: none;
     font-family: 'Patrick Hand SC', cursive;
     font-size: 1.2em;
-    min-width: 380px;
+    max-width: 500px;
 }
 
-@media (min-width: 576px) {
+/*@media (min-width: 576px) {
     body {
         width: 576px;
     }
-}
+}*/
 
 .footer {
     position: absolute;
     bottom: 0;
     width: 100%;
     white-space: nowrap;
-    line-height: 30px; /* Vertically center the text there */
+    line-height: 30px;
 }
