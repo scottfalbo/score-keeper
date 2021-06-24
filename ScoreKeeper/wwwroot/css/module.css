@@ -61,7 +61,35 @@ footer ul > li > a {
     margin-left: 10px;
 }
 
+/*----------------------About */
 
+#about-me figure {
+}
+
+    #about-me figure img {
+        width: 150px;
+        border-radius: 75px;
+        border: 2px solid #000;
+    }
+
+    #about-me figure figcaption {
+        font-size: 1.6em;
+    }
+
+#about-me article {
+    background-color: rgb(255 255 255 / 0.70);
+    padding: 5px;
+}
+
+#contact {
+    text-align: center;
+}
+
+#about-me div:last-child {
+    width: 200px;
+    height: 40px;
+    line-height: 20px;
+}
 
 /* ------------------- Rummy Score*/
 
@@ -139,6 +167,69 @@ footer ul > li > a {
             width: 100%;
         }
 
+
+/* -------------------New Game Menu*/
+
+#rummy-new-game {
+    text-align: center;
+}
+
+    #rummy-new-game p {
+        font-size: 1.2em;
+    }
+
+    #rummy-new-game > div h2 {
+        font-family: 'Fredericka the Great', cursive;
+        font-size: 2em;
+    }
+
+    #rummy-new-game input {
+        height: 40px;
+    }
+
+    #rummy-new-game .link-button {
+        line-height: 20px;
+    }
+
+/* ------------------- Game Over Menu*/
+
+#rummy-game-over > div h2 {
+    font-family: 'Fredericka the Great', cursive;
+    font-size: 2em;
+    width: 95%;
+    text-align: center;
+}
+
+#rummy-game-over > div table {
+    text-align: center;
+    font-size: 1.2em;
+}
+
+td {
+    padding: 5px;
+}
+
+#rummy-game-over > div div:nth-child(3) {
+    text-align: center;
+    font-size: 1.3em;
+}
+
+    #rummy-game-over > div div:nth-child(3) p:last-child {
+        text-align: center;
+        font-size: 2em;
+        font-family: 'The Girl Next Door', cursive;
+        color: #051eae;
+    }
+
+#rummy-game-over > div div:last-child {
+    width: 200px;
+    line-height: 20px;
+}
+
+#rummy-game-over .link-button {
+    height: 40px;
+}
+
 /* -----------------Shared */
 
 .link-button {
@@ -152,19 +243,6 @@ footer ul > li > a {
     color: #051eae;
 }
 
-
-/*
-font-family: 'Patrick Hand SC', cursive;
-font-family: 'The Girl Next Door', cursive;
-font-family: 'Delius Unicase', cursive;
-font-family: 'Walter Turncoat', cursive;
-*/
-
-
-
-
-
-
 .menu-block-out {
     background-color: rgb(255 255 255 / 0.70);
 }
@@ -173,3 +251,10 @@ font-family: 'Walter Turncoat', cursive;
         background-image: url("../images/paper-backer.jpg");
         background-size: cover;
     }
+
+/*
+font-family: 'Patrick Hand SC', cursive;
+font-family: 'The Girl Next Door', cursive;
+font-family: 'Delius Unicase', cursive;
+font-family: 'Walter Turncoat', cursive;
+*/

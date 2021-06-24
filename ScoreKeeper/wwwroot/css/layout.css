@@ -64,19 +64,36 @@ footer ul {
         margin: 10px auto;
     }
 
-    #about-me figure figcaption {
-        margin: 10px auto;
-    }
-
 #contact {
     width: 90%;
     margin: 20px auto;
 }
 
+    #contact ul:first-child {
+        width: 90%;
+        margin: 10px auto;
+    }
+
+        #contact ul:first-child li {
+            margin: 5px;
+        }
+
+    #contact ul:last-child {
+        width: 90%;
+        margin: 10px auto;
+    }
+
+            #contact ul:last-child li {
+                display: inline-block;
+            }
+
+                #contact img {
+                    width: 50px;
+                }
+
 #about-me div:last-child {
     width: 70%;
     margin: 20px auto;
-}
 
 /* ------------------- Rummy Score*/
 
