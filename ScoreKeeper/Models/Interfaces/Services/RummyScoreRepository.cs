@@ -222,6 +222,25 @@ namespace ScoreKeeper.Models.Interfaces.Services
         }
 
         /// <summary>
+        /// Get a list of all of the games
+        /// </summary>
+        /// <returns> List<Rummy> /returns>
+        public async Task<List<Rummy>> GetGames()
+        {
+            return await _db.Rummy
+                .Include(y => y.RummyPlayers)
+                .ThenInclude(a => a.Player)
+                .ThenInclude(b => b.PlayerScores)
+                .ThenInclude(c => c.Score)
+                .Select(x => new Rummy
+                {
+                    Id = x.Id,
+                    Limit = x.Limit,
+                    RummyPlayers = x.RummyPlayers
+                }).ToListAsync();
+        }
+
+        /// <summary>
         /// Controller method to make a series of other method calls
         /// </summary>
         /// <param name="score"> score to add </param>
