@@ -37,8 +37,11 @@ footer ul {
         display: inline-block;
         margin: auto;
         text-align: center;
-        float: right;
     }
+
+    footer ul > li:last-child {
+        float: right;
+    } 
 
 /* ---------------- Instructions */
 
@@ -84,6 +87,10 @@ footer ul {
         grid-row: 1/2;
     }
 
+#instruction-manual > div {
+    width: 200px;
+    margin: 10px auto;
+}
 
 /*----------------------About */
 
