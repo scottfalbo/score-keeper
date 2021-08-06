@@ -6,7 +6,7 @@ version: 1.0.0
 
 ## Deployed on Azure
 
-[falboscorekeeper.azurewebsites.net](https://falboscorekeeper.azurewebsites.net/)
+no longer live
 
 ---
 
